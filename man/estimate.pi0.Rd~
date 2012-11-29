@@ -1,0 +1,73 @@
+\name{estimate.pi0}
+\alias{estimate.pi0}
+
+\title{
+Estimation of Proportion of Null Hypotheses among p-values
+}
+\description{
+  This function makes three routines available for estimating the
+  true proportion of null hypotheses from an exerpiment using p-values.
+  Those methods are the Least Slope method (\code{lsl}), the Two Step
+  Test method (\code{tst}), and the Storey tail proportion of p-values
+  method (\code{storey}).
+}
+
+\usage{
+estimate.pi0(pvalues, method, alpha = 0.05, lambda = 0.5)
+}
+
+\arguments{
+  \item{pvalues}{
+    A vector of the unadjusted p-values resulting from a multiple
+    testing experiment.
+  }
+
+  \item{method}{
+    The technique used to estimate the proportion of true null
+    hypotheses. Valid arguments are \code{lsl}, \code{tst}, or
+    \code{storey}, which correspond to the Least Slope, Two Step Test,
+    and Storey tail proportion of p-values methods, respectively.
+  }
+  \item{alpha}{
+    In the Two Step Test method, the level of the
+    Benjamini-Hochberg procedure used to estimate the propotion of true
+    null hypotheses.
+  }
+  \item{lambda}{
+    In the Storey tail proportion of p-values method, the
+    cutoff used to differentiate p-values.
+  }
+}
+
+\details{
+  The details of these procedures can be found in the papers by
+  Storey, Benjamini, and Benjamini. See the references below.
+}
+
+\value{
+  An estimate of the proportion of true null hypotheses from the result
+  of the multiple testing experiment that the unadjusted p-values were
+  extracted from.
+}
+
+\references{
+  Benjamini, Storey papers.
+}
+
+\author{
+Kris Sankaran
+}
+
+\examples{
+
+true.p.1 <- runif(20, 0, 0.01)
+null.p.1 <- runif(980, 0, 1)
+p.val.1 <- c(true.p.1, null.p.1)
+
+estimate.pi0(p.val.1, "lsl")
+estimate.pi0(p.val.1, "storey", lambda = 0.2)
+estimate.pi0(p.val.1, "tst")
+
+}
+
+\keyword{ ~htest }
