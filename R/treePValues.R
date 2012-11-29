@@ -1,5 +1,5 @@
 
-treePValues <- function(tree, otuTable, sampleMapGroups){
+treePValues <- function(tree, abundances, environments){
     require(igraph0)
 
     igraphTree <- graph.adjacency(tree)
@@ -22,14 +22,14 @@ treePValues <- function(tree, otuTable, sampleMapGroups){
         ## so we can't consider them in the p-value calculations.
 
         allDescendantsNames <- V(subtree)$name
-        namesInTipsIndex <- which(allDescendantsNames %in% rownames(otuTable))
+        namesInTipsIndex <- which(allDescendantsNames %in% rownames(abundances))
 
         if(length(namesInTipsIndex) > 0){
 
-            subOtuTable <- otuTable[V(subtree)$name[namesInTipsIndex], ]
+            subOtuTable <- abundances[V(subtree)$name[namesInTipsIndex], ]
             aggregateData <- colSums(subOtuTable)
             aggregateDataWithLabel <- data.frame(abund = as.vector(aggregateData),
-                                                 type = sampleMapGroups)
+                                                 type = environments)
 
             ## fit the LM model to obtain p-values ##
 

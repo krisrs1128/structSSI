@@ -5,7 +5,7 @@ Version: 1.0
 Date: 2012-03-14
 Author: Kris Sankaran
 Maintainer: Kris Sankaran <kriss1@stanford.edu>
-Description: Performs multiple testing corrections that take specific struture of hypotheses into account. 
+Description: Performs multiple testing corrections that take specific struture of hypotheses into account.
 License: GPL-2
-Depends: R, multtest, igraph0, Rgraphviz, RColorBrewer, classInt, methods
+Depends: multtest, igraph0, Rgraphviz, RColorBrewer, classInt, methods
 Suggests: adephylo

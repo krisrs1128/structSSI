@@ -47,6 +47,8 @@ treePValues(tree, abundances, environments)
 library(phyloseq)
 data(GlobalPatterns)
 GP.chl <- subset_taxa(GlobalPatterns, Phylum == "Chlamydiae")
+abundances <- otu_table(GP.chl)
+environments <- sample_data(GP.chl)$SampleType
 
 GPChltree <- get.adjacency(as.igraph(phy_tree(GP.chl)))
 ChlPVal <- treePValues(GPChltree, abundances, environments)
