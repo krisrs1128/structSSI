@@ -7,11 +7,15 @@ plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
 
     ## Make the labels of this tree correspond to
     ## the names of hypotheses.
-
     nAttrs <- list()
     nAttrs$label <- hyp.tree@hypotheses.names
+    nAttrs$height <- rep(5, 41)
+    nAttrs$fontsize <- rep(19.0, 41)
     nodeNames <- nodes(tree.to.plot)
+
     names(nAttrs$label) <- nodeNames
+    names(nAttrs$height) <- nodeNames
+    names(nAttrs$fontsize) <- nodeNames
 
     u.pval <- hyp.tree@unadj.p.values
     sig <- which(u.pval <= alpha)
@@ -24,7 +28,6 @@ plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
 
     n.sig.classes <- min(length(pvals.sig), 9)
     if(n.sig.classes > 1){
-
         # We are okay with having only one element in each interval
         pval.sig.class <- suppressWarnings(classIntervals(pvals.sig, n.sig.classes - 1))
         pvals.palette.green <- suppressWarnings(brewer.pal(n.sig.classes, "Greens"))
@@ -32,16 +35,12 @@ plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
         pvals.palette.green <- pvals.palette.green[c((n.sig.classes - 1):1)] # we want more significant nodes to be darker color
         colCategory.green <- as.vector(findColours(pval.sig.class, pvals.palette.green))
         nAttrs$fillcolor[sig] <- colCategory.green
-
     } else {
-
         nAttrs$fillcolor[sig] <- "green"
-
     }
 
     n.unsig.classes  <- min(length(pvals.unsig), 9)
     if(n.unsig.classes > 1){
-
         # We are okay with having only one element in each interval
         pval.unsig.class <- suppressWarnings(classIntervals(pvals.unsig, n.unsig.classes - 1))
         pvals.palette.blue <- suppressWarnings(brewer.pal(n.unsig.classes, "Blues"))
@@ -54,5 +53,4 @@ plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
     }
 
     plot(tree.to.plot, nodeAttrs = nAttrs)
-
 }
