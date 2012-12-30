@@ -9,10 +9,10 @@ plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
     ## the names of hypotheses.
     nAttrs <- list()
     nAttrs$label <- hyp.tree@hypotheses.names
-    nAttrs$height <- rep(5, 41)
-    nAttrs$fontsize <- rep(19.0, 41)
     nodeNames <- nodes(tree.to.plot)
-
+    nNodes <- length(nodeNames)
+    nAttrs$height <- rep(5, nNodes)
+    nAttrs$fontsize <- rep(24.0, nNodes)
     names(nAttrs$label) <- nodeNames
     names(nAttrs$height) <- nodeNames
     names(nAttrs$fontsize) <- nodeNames
