@@ -88,7 +88,7 @@ library(igraph0)
 library(adephylo)
 
 set.seed(12309)
-tree <- get.adjacency(as.igraph(rtree(25)))
+tree <- get.adjacency(igraph0::as.igraph(rtree(25)))
 hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
 unadj.p.values <- vector("numeric", length = 49)

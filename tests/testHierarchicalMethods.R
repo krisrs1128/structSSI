@@ -4,8 +4,8 @@ library(structSSI)
 
 set.seed(130229)
 library(adephylo)
-tree.1 <- get.adjacency(as.igraph(rtree(10)))
-tree.2 <- get.adjacency(as.igraph(rtree(50)))
+tree.1 <- get.adjacency(igraph0::as.igraph(rtree(10)))
+tree.2 <- get.adjacency(igraph0::as.igraph(rtree(50)))
 
 hypotheses.names.1 <- paste("hyp", c(1:19))
 hypotheses.names.2 <- paste("hyp", c(1:99))
