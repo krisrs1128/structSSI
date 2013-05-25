@@ -1,6 +1,6 @@
 
 treePValues <- function(tree, abundances, environments){
-    require(igraph0)
+    require(igraph)
 
     igraphTree <- graph.adjacency(tree)
 
