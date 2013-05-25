@@ -88,14 +88,14 @@ result <- Adaptive.GBH.adjp(unadjp, groups, method = "lsl", alpha = 0.05)
 
 ## Example of using the Hierarchical FDR controlling procedure.
 
-library(igraph0)
+library(igraph)
 
 # only used here to generate a random tree. Not
 # required for package.
 
 library(adephylo)
 
-tree <- get.adjacency(igraph0::as.igraph(rtree(25)))
+tree <- as.matrix(get.adjacency(as.igraph(rtree(25))))
 hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
 
