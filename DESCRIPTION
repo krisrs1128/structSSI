@@ -9,4 +9,3 @@ Description: Performs multiple testing corrections that take specific structure 
 License: GPL-2
 Depends: multtest, igraph, Rgraphviz, RColorBrewer, classInt, methods
 Suggests: adephylo, phyloseq
-
