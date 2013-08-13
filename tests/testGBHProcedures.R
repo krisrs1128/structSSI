@@ -1,6 +1,6 @@
 ### GBH Tests ###
 
-library(structSSI)
+library('structSSI')
 set.seed(13082)
 
 ## Testing pi0 estimation procedures. ##

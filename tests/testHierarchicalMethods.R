@@ -1,9 +1,9 @@
 ## Test the hypothesesTree creation class.
 
-library(structSSI)
+library('structSSI')
 
 set.seed(130229)
-library(adephylo)
+library('ape')
 tree.1 <- as.matrix(get.adjacency(as.igraph(rtree(10))))
 tree.2 <- as.matrix(get.adjacency(as.igraph(rtree(50))))
 
