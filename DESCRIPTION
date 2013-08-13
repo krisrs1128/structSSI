@@ -1,8 +1,8 @@
 Package: structSSI
 Type: Package
 Title: Multiple Testing for Hypotheses with Hierarchical or Group Structure
-Version: 1.0.3
-Date: 2012-05-24
+Version: 1.0.4
+Date: 2013-08-12
 Author: Kris Sankaran
 Maintainer: Kris Sankaran <kriss1@stanford.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
