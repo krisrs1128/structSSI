@@ -8,4 +8,4 @@ Maintainer: Kris Sankaran <kriss1@stanford.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
 Depends: multtest, igraph, Rgraphviz, RColorBrewer, classInt, methods
-Suggests: adephylo, phyloseq
+Suggests: ape, phyloseq

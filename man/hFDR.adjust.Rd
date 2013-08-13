@@ -88,7 +88,7 @@ library('igraph')
 library('ape')
 
 set.seed(12309)
-tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = F))
+tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
 hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
 unadj.p.values <- vector("numeric", length = 49)
