@@ -1,9 +1,9 @@
 ## Test the hypothesesTree creation class.
 
-library('structSSI')
-
 set.seed(130229)
+library('structSSI')
 library('ape')
+library('igraph')
 tree.1 <- as.matrix(get.adjacency(as.igraph(rtree(10))))
 tree.2 <- as.matrix(get.adjacency(as.igraph(rtree(50))))
 
@@ -30,5 +30,5 @@ adjust2 <- hFDR.adjust(hypotheses.tree.2, 0.05) # Correctly gives warning.
 hypotheses.tree.1@rejected.hypotheses <- adjust1$rejected.hypotheses
 hypotheses.tree.1@adj.p.values <- adjust1$adjp.values
 
-plot(hypotheses.tree.1, p.values.type = "adjusted")
-plot(hypotheses.tree.1, p.values.type = "unadjusted", 0.05)
+plotAdjustedHypothesesTree(hypotheses.tree.1)
+plotUnadjustedHypothesesTree(hypotheses.tree.1, alpha = 0.05)

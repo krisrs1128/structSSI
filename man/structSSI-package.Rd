@@ -87,9 +87,7 @@ groups <- c(sample(1:3, 200, replace = TRUE))
 result <- Adaptive.GBH.adjp(unadjp, groups, method = "lsl", alpha = 0.05)
 
 ## Example of using the Hierarchical FDR controlling procedure.
-
-# only used here to generate a random tree. Not
-# required for package.
+library('igraph')
 library('ape')
 
 tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
@@ -111,6 +109,6 @@ hyp.tree <- new("hypothesesTree", tree = tree,
 hyp.tree.adjust <- hFDR.adjust(hyp.tree, 0.05)
 hyp.tree@rejected.hypotheses <- hyp.tree.adjust$rejected.hypotheses
 hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
-plot(hyp.tree, p.values.type = "adjusted")
+plotAdjustedHypothesesTree(hyp.tree)
 
 }
