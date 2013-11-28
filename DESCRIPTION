@@ -7,5 +7,5 @@ Author: Kris Sankaran
 Maintainer: Kris Sankaran <kriss1@stanford.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
-Depends: multtest, igraph, Rgraphviz, RColorBrewer, classInt, methods, Matrix
+Imports: multtest, igraph, methods, Matrix, Rgraphviz, RColorBrewer, classInt
 Suggests: ape, phyloseq

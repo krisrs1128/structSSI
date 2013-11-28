@@ -4,9 +4,6 @@ plotAdjustedHypothesesTree <- function(hyp.tree){
   # procedure proceeded down the tree. It also shows that
   # the gradation of adjusted p-values for the nodes
   # that were rejected.
-  require(RColorBrewer)
-  require(classInt)
-
   tree.to.plot <- igraph.to.graphNEL(graph.adjacency(hyp.tree@tree))
 
   # Make the labels of this tree correspond to
@@ -52,7 +49,7 @@ plotAdjustedHypothesesTree <- function(hyp.tree){
   # First find the indices of those hypotheses that were not tested
   untested.hyp.indices <- which(names(p.vals.total) %in% untested.hyp)
   rejected.hyp.indices <- which(names(p.vals.total) %in% rejected.hyp)
-  unrejected.hyp.indices <-which(names(p.vals.total) %in% unrejected.hyp)
+  unrejected.hyp.indices <- which(names(p.vals.total) %in% unrejected.hyp)
 
   # Now we find find the p-values corresponding to those hypotheses that were
   # rejected and those that were not rejected.
