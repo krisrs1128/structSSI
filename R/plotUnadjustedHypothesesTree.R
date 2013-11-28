@@ -1,8 +1,5 @@
 plotUnadjustedHypothesesTree <- function(hyp.tree, alpha = 0.05){
 
-    require(RColorBrewer)
-    require(classInt)
-
     tree.to.plot <- igraph.to.graphNEL(graph.adjacency(hyp.tree@tree))
 
     ## Make the labels of this tree correspond to

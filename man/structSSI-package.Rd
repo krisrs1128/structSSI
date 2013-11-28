@@ -90,10 +90,9 @@ result <- Adaptive.GBH.adjp(unadjp, groups, method = "lsl", alpha = 0.05)
 
 # only used here to generate a random tree. Not
 # required for package.
-library('igraph')
 library('ape')
 
-tree <- as.matrix(get.adjacency(as.igraph(rtree(25))), sparse = FALSE)
+tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
 hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
 

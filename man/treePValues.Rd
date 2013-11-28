@@ -45,6 +45,7 @@ treePValues(tree, abundances, environments)
 \examples{
 ## Load data from the phyloseq package
 library('phyloseq')
+library('ape')
 data(GlobalPatterns)
 GP.chl <- subset_taxa(GlobalPatterns, Phylum == "Chlamydiae")
 abundances <- otu_table(GP.chl)

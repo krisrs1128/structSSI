@@ -7,10 +7,7 @@
 
 hFDR.adjust <- function(hyp.tree, alpha = 0.05){
 
-    require(igraph)
-    require(multtest)
-
-    if(hyp.tree@unadj.p.values[1] > alpha){
+  if(hyp.tree@unadj.p.values[1] > alpha){
         warning("Root hypothesis p-value equal to ", hyp.tree@unadj.p.values[1], ".
 Fail to reject, terminating procedure.")
         return(list(rejected.hypotheses = NA, adjp.values = hyp.tree@unadj.p.values[1]))
@@ -51,7 +48,7 @@ Fail to reject, terminating procedure.")
 
         if(length(subcomp) > 1){
             subtree <- new("hypothesesTree")
-            subtree.igraph <- induced.subgraph(tree, subcomp)
+            subtree.igraph <- induced.subgraph(graph = tree, vids = subcomp)
             subtree@tree <- as.matrix(get.adjacency(subtree.igraph))
             subtree@hypotheses.names <- V(subtree.igraph)$hyp.names
 

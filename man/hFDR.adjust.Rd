@@ -84,7 +84,6 @@ hypotheses. 2002.
 
 \examples{
 
-library('igraph')
 library('ape')
 
 set.seed(12309)
