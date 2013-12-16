@@ -30,5 +30,5 @@ adjust2 <- hFDR.adjust(hypotheses.tree.2, 0.05) # Correctly gives warning.
 hypotheses.tree.1@rejected.hypotheses <- adjust1$rejected.hypotheses
 hypotheses.tree.1@adj.p.values <- adjust1$adjp.values
 
-plotAdjustedHypothesesTree(hypotheses.tree.1)
-plotUnadjustedHypothesesTree(hypotheses.tree.1, alpha = 0.05)
+plot(hypotheses.tree.1)
+plot(hypotheses.tree.1, alpha = 0.05)

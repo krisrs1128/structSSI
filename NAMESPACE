@@ -21,8 +21,7 @@ importFrom(methods, slot)
 importFrom(Matrix, sparseMatrix)
 
 exportPattern("^[^\\.]")
-export(Adaptive.GBH)
-export(Oracle.GBH)
-export(estimate.pi0)
+export(Adaptive.GBH, Oracle.GBH, estimate.pi0, hFDR.adjust)
+exportMethods(show, plot)
 exportClasses(hypothesesTree)
-export(hFDR.adjust)
+

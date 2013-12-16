@@ -1,11 +1,12 @@
 Package: structSSI
 Type: Package
 Title: Multiple Testing for Hypotheses with Hierarchical or Group Structure
-Version: 1.0.5
+Version: 1.0.6
 Date: 2013-11-28
 Author: Kris Sankaran
 Maintainer: Kris Sankaran <kriss1@stanford.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
-Imports: multtest, igraph, methods, Matrix, Rgraphviz, RColorBrewer, classInt, graph
+Depends: methods
+Imports: multtest, igraph, Matrix, Rgraphviz, RColorBrewer, classInt, graph
 Suggests: ape, phyloseq

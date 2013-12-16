@@ -109,6 +109,6 @@ hyp.tree <- new("hypothesesTree", tree = tree,
 hyp.tree.adjust <- hFDR.adjust(hyp.tree, 0.05)
 hyp.tree@rejected.hypotheses <- hyp.tree.adjust$rejected.hypotheses
 hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
-plotAdjustedHypothesesTree(hyp.tree)
+plot(hyp.tree)
 
 }

@@ -105,8 +105,8 @@ hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
 
 ## We can visualize the difference between the unadjusted and the
 ## adjusted trees.
-plotUnadjustedHypothesesTree(hyp.tree, 0.05)
-plotAdjustedHypothesesTree(hyp.tree)
+plot(hyp.tree, 0.05)
+plot(hyp.tree)
 }
 
 \keyword{ ~htest }
