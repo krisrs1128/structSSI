@@ -8,7 +8,7 @@ Method to  \code{plot} an object of class \code{hypothesesTree}
 \section{Methods}{
 \describe{
 
-\item{\code{signature(x = "hypothesesTree", y = "ANY")}}{
+\item{\code{signature(x = "hypothesesTree", y = "ANY")}}{ 
 
 A method to \code{plot} an object of class \code{hypothesesTree}. The
 user has two options: plot the tree with unadjusted p-values or plot hte

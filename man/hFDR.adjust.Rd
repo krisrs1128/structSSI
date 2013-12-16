@@ -83,7 +83,7 @@ hypotheses. 2002.
 }
 
 \examples{
-
+library('igraph')
 library('ape')
 
 set.seed(12309)
@@ -105,11 +105,8 @@ hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
 
 ## We can visualize the difference between the unadjusted and the
 ## adjusted trees.
-
-plot(hyp.tree, p.values.type = "unadjusted")
-plot(hyp.tree, p.values.type = "adjusted")
-
-
+plotUnadjustedHypothesesTree(hyp.tree, 0.05)
+plotAdjustedHypothesesTree(hyp.tree)
 }
 
 \keyword{ ~htest }

@@ -48,8 +48,8 @@ setMethod("plot", "hypothesesTree", function(x,..., p.values.type = "unadjusted"
           p.values.type <- tolower(p.values.type)
           p.values.type <- match.arg(p.values.type, c("unadjusted", "adjusted"))
           if(p.values.type == "unadjusted"){
-              plotUnadjustedHypothesesTree(x, alpha)
+            plotUnadjustedHypothesesTree(x, alpha)
           } else if(p.values.type == "adjusted"){
-              plotAdjustedHypothesesTree(x)
+            plotAdjustedHypothesesTree(x)
           }
-      })
+        })

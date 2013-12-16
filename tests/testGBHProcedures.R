@@ -1,8 +1,7 @@
 ### GBH Tests ###
 
-library('structSSI')
 set.seed(13082)
-
+library('structSSI')
 ## Testing pi0 estimation procedures. ##
 
 unadjp <- c(runif(100, 0, 1), runif(100, 0, 0.01))
