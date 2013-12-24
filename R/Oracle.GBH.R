@@ -1,8 +1,5 @@
-  # This function performs the Group Benjamini-Hochberg procedure at level alpha. Unlike
-  # the Oracle.GBH.adjp() function, this only returns a list of adjusted p-values, the
-  # indices of the original p-values that those adjusted p-values correspond to, and
-  # the subsets of hypotheses that were rejected and not rejected (labeled by the original
-  # unadjusted p-values indexing).
+
+  # This function performs the Group Benjamini-Hochberg procedure at level alpha.
   #
   # Input: 1) unadjp - [vector numerics between 0 and 1] - The unadjusted p-values that have been computed by testing
   # multiple hypotheses tests. This is the same as what one would input into the
@@ -30,16 +27,36 @@
   # unadj.p indexing, and (d) the hypotheses that were not rejected, also labeled
   # by their original unadj.p indexing.
 
-Oracle.GBH <- function(unadj.p, groups, pi.groups, alpha){
-    GBH.Adjust.P <- Oracle.GBH.adjp(unadj.p, groups, pi.groups)
-    adjp <- GBH.Adjust.P$GBH.adjusted.p.values$GBH
-    adjp.index <- as.character(GBH.Adjust.P$GBH.adjusted.p.values$adjusted.p.index)
-    rejected.hyp <- as.vector(adjp.index[which(adjp <= alpha)])
-    not.rejected.hyp <- as.vector(adjp.index[which(adjp > alpha)])
-    GBH.results <- list('adjp' = adjp, 'adjp.index' = adjp.index, 'rejected' = rejected.hyp,
-                        'not.rejected' = not.rejected.hyp)
-    GBH.results$rejected <- as.character(GBH.results$rejected)
-    GBH.results$not.rejected <- as.character(GBH.results$not.rejected)
-    return(GBH.results)
-}
+Oracle.GBH <- function(unadj.p, groups, pi.groups, alpha = 0.05){
+    p.weighted <- unadj.p
+    N <- length(unadj.p)
 
+    n_g <- table(groups)
+    pi0 <- 1/N * sum(n_g * pi.groups)
+
+    # The first part of the procedure involves weighting p-values. This is where the
+    # known group structure information is being explicitly accounted for.
+    pi.groups.match <- pi.groups[as.character(groups)]
+    p.weighted <- unadj.p * (pi.groups.match / (1 - pi.groups.match))
+
+    # The second part of the procedure is exactly like Benjamini-Hochberg in that it
+    # is a step-up procedure where we compared ordered p-values to some constant factor
+    # times alpha, where the constant is determined by the position of the p-value in
+    # the ordered list.
+
+    sorting.weighted.p <- sort(p.weighted, index.return = TRUE)
+    p.weighted <- sorting.weighted.p$x
+    p.weighted.index <- sorting.weighted.p$ix
+
+    adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
+    adjp <- step.up(adjp.temp)
+
+    GBH.adjust <- data.frame('unadjp' = unadj.p[p.weighted.index],
+                             'adjp' = adjp,
+                             'group' = groups[p.weighted.index],
+                             'adj.significance' = SignificanceStars(alpha, adjp))
+    rownames(GBH.adjust) <- names(unadj.p)[p.weighted.index]
+    GBH.result <- new('GBH', GBH.adjust = GBH.adjust,
+                      pi0 = pi.groups, adaptive = F)
+    return(GBH.result)
+}

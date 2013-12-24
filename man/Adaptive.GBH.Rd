@@ -93,18 +93,12 @@ groups <- c(sample(1:2, 2000, replace = TRUE))
 
 result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
 
-names(result)
-
 # The head of adjusted p-values.
 
-head(result$adjp)
+head(result@GBH.adjust)
 
-# The hypotheses corresponding to the most significant
-# p-values.
-
-head(result$adjp.index)
-
+# The estimated proportions of null hypotheses, between groups
+result@pi0
 }
-
 
 \keyword{ ~htest }
