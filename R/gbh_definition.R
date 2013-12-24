@@ -18,7 +18,7 @@ setMethod("show", "GBH", function(object) {
 })
 
 setMethod("summary", "GBH", function(object) {   
-}
+})
 
 setMethod("plot", "GBH", function(x,..., adjust = TRUE, alpha = 0.05) {
           GBH <- x@GBH.adjust

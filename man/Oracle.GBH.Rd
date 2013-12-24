@@ -76,8 +76,7 @@ names(unadjp) <- paste("hyp", 1:5)
 groups <- c(1, 2, 1, 2, 2)
 
 # Say we know goup 1 has pi_0,1 = 0.3 and pi_0,2 = 0.9
-
-pi.groups <- c('1' = 0.3, '2' = 0.9)
+pi.groups <- c("1" = 0.3, "2" = 0.9)
 Oracle.GBH(unadjp, groups, pi.groups)
 
 # An example where we use an external pi0 estimation routine
@@ -85,17 +84,14 @@ Oracle.GBH(unadjp, groups, pi.groups)
 unadjp.2 <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
 names(unadjp.2) <- paste("hyp", 1:2000)
 groups.2 <- c(sample(1:2, 2000, replace = TRUE))
-pi.groups <- vector(length = 2, names = c(1, 2))
+pi.groups <- c("1" = NA, "2" = NA)
 for(i in 1:2){
     pi.groups[i] <- estimate.pi0(unadjp.2[which(groups.2 == i)], method =
                                  "storey")
 }
 
 result <- Oracle.GBH(unadjp.2, groups.2, pi.groups, 0.05)
-head(result$adjp)
-head(result$rejected)
-head(result$not.rejected)
-
+result@pi0
+result@GBH.adjust
 }
-
 \keyword{ ~htest }

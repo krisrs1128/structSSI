@@ -84,7 +84,7 @@ set.seed(2249)
 unadjp <- c(runif(40, 0, 0.001), runif(30, 0, 0.1), runif(130, 0, 1))
 names(unadjp) <- paste("hyp", c(1:200))
 groups <- c(sample(1:3, 200, replace = TRUE))
-result <- Adaptive.GBH.adjp(unadjp, groups, method = "lsl", alpha = 0.05)
+result <- Adaptive.GBH(unadjp, groups, method = "lsl", alpha = 0.05)
 
 ## Example of using the Hierarchical FDR controlling procedure.
 library('igraph')
@@ -110,5 +110,4 @@ hyp.tree.adjust <- hFDR.adjust(hyp.tree, 0.05)
 hyp.tree@rejected.hypotheses <- hyp.tree.adjust$rejected.hypotheses
 hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
 plot(hyp.tree)
-
 }

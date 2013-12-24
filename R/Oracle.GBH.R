@@ -27,16 +27,25 @@
   # unadj.p indexing, and (d) the hypotheses that were not rejected, also labeled
   # by their original unadj.p indexing.
 
-Oracle.GBH <- function(unadj.p, groups, pi.groups, alpha = 0.05){
+Oracle.GBH <- function(unadj.p, groups.index, pi.groups, alpha = 0.05){
+    if(!all(groups.index %in% names(pi.groups))) {
+        stop('Names of pi.groups vector must match
+              the elements of groups vector.')
+    }
+    if(length(unadj.p) != length(groups.index)) {
+        stop('Length of p values vector does not match
+              group indexing vector.')
+    }
+    
     p.weighted <- unadj.p
     N <- length(unadj.p)
 
-    n_g <- table(groups)
+    n_g <- table(groups.index)
     pi0 <- 1/N * sum(n_g * pi.groups)
 
     # The first part of the procedure involves weighting p-values. This is where the
     # known group structure information is being explicitly accounted for.
-    pi.groups.match <- pi.groups[as.character(groups)]
+    pi.groups.match <- pi.groups[as.character(groups.index)]
     p.weighted <- unadj.p * (pi.groups.match / (1 - pi.groups.match))
 
     # The second part of the procedure is exactly like Benjamini-Hochberg in that it
@@ -53,7 +62,7 @@ Oracle.GBH <- function(unadj.p, groups, pi.groups, alpha = 0.05){
 
     GBH.adjust <- data.frame('unadjp' = unadj.p[p.weighted.index],
                              'adjp' = adjp,
-                             'group' = groups[p.weighted.index],
+                             'group' = groups.index[p.weighted.index],
                              'adj.significance' = SignificanceStars(alpha, adjp))
     rownames(GBH.adjust) <- names(unadj.p)[p.weighted.index]
     GBH.result <- new('GBH', GBH.adjust = GBH.adjust,
