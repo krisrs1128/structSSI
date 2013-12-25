@@ -1,8 +1,9 @@
 SignificanceStars <- function(alpha, pvalues) {
         result <- vector(length = length(pvalues))
-        result[pvalues < alpha / 10] <- '***'
-        result[pvalues >= alpha / 10 & pvalues < alpha / 2] <- '**'
-        result[pvalues >= alpha / 2 & pvalues < alpha] <- '*'
-        result[pvalues > alpha] <- '-'
+        result[pvalues < alpha / 50] <- '***'
+        result[pvalues >= alpha / 50 & pvalues < alpha / 5] <- '**'
+        result[pvalues >= alpha / 5 & pvalues < alpha] <- '*'
+        result[pvalues >= alpha & pvalues < 2 * alpha] <- '.'
+        result[pvalues > 2 * alpha] <- '-'
         return(result)
     }

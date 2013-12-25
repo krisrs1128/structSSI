@@ -1,4 +1,4 @@
-step.up <- function(adjp.temp) {
+StepUp <- function(adjp.temp) {
     N <- length(adjp.temp) 
     running.min <- adjp.temp[N]
     for(i in N:1) {

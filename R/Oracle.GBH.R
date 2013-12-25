@@ -4,7 +4,7 @@
   # Input: 1) unadjp - [vector numerics between 0 and 1] - The unadjusted p-values that have been computed by testing
   # multiple hypotheses tests. This is the same as what one would input into the
   # multtest function mt.rawp2adjp(), for example.
-  # 2) groups - [same as other groups vectors] - A vector that contains the group labeling for each hypothesis where
+  # 2) group.index - [same as other groups vectors] - A vector that contains the group labeling for each hypothesis where
   # the index of each hypothesis is the same as the index used for the unadjusted
   # p-values above. For example, if the first 3 hypotheses were in group 1 and
   # the last 2 were in group 2, then we would input (1, 1, 1, 2, 2) as the ``groups''
@@ -27,12 +27,12 @@
   # unadj.p indexing, and (d) the hypotheses that were not rejected, also labeled
   # by their original unadj.p indexing.
 
-Oracle.GBH <- function(unadj.p, groups.index, pi.groups, alpha = 0.05){
-    if(!all(groups.index %in% names(pi.groups))) {
+Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
+    if(!all(group.index %in% names(pi.groups))) {
         stop('Names of pi.groups vector must match
               the elements of groups vector.')
     }
-    if(length(unadj.p) != length(groups.index)) {
+    if(length(unadj.p) != length(group.index)) {
         stop('Length of p values vector does not match
               group indexing vector.')
     }
@@ -40,12 +40,12 @@ Oracle.GBH <- function(unadj.p, groups.index, pi.groups, alpha = 0.05){
     p.weighted <- unadj.p
     N <- length(unadj.p)
 
-    n_g <- table(groups.index)
+    n_g <- table(group.index)
     pi0 <- 1/N * sum(n_g * pi.groups)
 
     # The first part of the procedure involves weighting p-values. This is where the
     # known group structure information is being explicitly accounted for.
-    pi.groups.match <- pi.groups[as.character(groups.index)]
+    pi.groups.match <- pi.groups[as.character(group.index)]
     p.weighted <- unadj.p * (pi.groups.match / (1 - pi.groups.match))
 
     # The second part of the procedure is exactly like Benjamini-Hochberg in that it
@@ -58,14 +58,14 @@ Oracle.GBH <- function(unadj.p, groups.index, pi.groups, alpha = 0.05){
     p.weighted.index <- sorting.weighted.p$ix
 
     adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
-    adjp <- step.up(adjp.temp)
+    adjp <- StepUp(adjp.temp)
 
     GBH.adjust <- data.frame('unadjp' = unadj.p[p.weighted.index],
                              'adjp' = adjp,
-                             'group' = groups.index[p.weighted.index],
+                             'group' = group.index[p.weighted.index],
                              'adj.significance' = SignificanceStars(alpha, adjp))
     rownames(GBH.adjust) <- names(unadj.p)[p.weighted.index]
     GBH.result <- new('GBH', GBH.adjust = GBH.adjust,
-                      pi0 = pi.groups, adaptive = F)
+                      pi0 = pi.groups, adaptive = F, alpha = alpha)
     return(GBH.result)
 }

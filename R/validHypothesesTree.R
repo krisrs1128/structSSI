@@ -17,4 +17,3 @@ validHypothesesTree <- function(object){
     }
     TRUE
 }
-

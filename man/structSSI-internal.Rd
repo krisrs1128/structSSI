@@ -1,9 +1,9 @@
 \name{structSSI-internal.Rd}
-\alias{Oracle.GBH.adjp}
 \alias{pi0.tail.p}
 \alias{pi0.tst}
 \alias{pi0.lsl}
-\alias{Adaptive.GBH.adjp}
+\alias{StepUp}
+\alias{SignificanceStars}
 \alias{plotUnadjustedHypothesesTree}
 \alias{plotAdjustedHypothesesTree}
 \alias{validHypothesesTree}

@@ -22,7 +22,7 @@ inputted as the argument \code{pi.groups} in the this function \code{Oracle.GBH}
 }
 
 \usage{
-Oracle.GBH(unadj.p, groups, pi.groups, alpha)
+Oracle.GBH(unadj.p, group.index, pi.groups, alpha = 0.05)
 }
 
 \arguments{
@@ -30,15 +30,17 @@ Oracle.GBH(unadj.p, groups, pi.groups, alpha)
     A vector of the unadjusted p-values resulting from a multiple
     testing experiment.
   }
-  \item{groups}{
+  \item{group.index}{
     A vector of the same length as the vector of unadjusted p-values,
-    where an 'i' in the jth coordinate indicates that the jth unadjusted
-    p-values in \code{unadj.p} belongs to group i.
+    where a "G" in the jth coordinate indicates that the jth unadjusted
+    p-values in \code{unadj.p} belongs to group "G". This code can be
+    either a factor giving group names, or a numeric index.
   }
   \item{pi.groups}{
     A vector of the known proportions of true null hypotheses within
-    each of the groups. The ith element of this vector is the proportion
-    of null hypotheses in group i within the groups argument.
+    each of the groups. This vector should be named so that each
+    element of the \code{group.index} vector correspond to one of the names
+    of the \code{pi.groups} vector.
   }
   \item{alpha}{
     The level that we are attempting to control the FDR at.
@@ -46,12 +48,7 @@ Oracle.GBH(unadj.p, groups, pi.groups, alpha)
 }
 
 \value{
-
-  A list containing the sorted GBH adjusted p-values, sorted indices
-  corresponding to those adjusted p-values, sorted names of rejected
-  hypotheses, and unrejected hypotheses.
-
-
+  An object of class \code{GBH}, which provides the adjusted p-values.
 }
 \references{
   Hu, J.X., Zhao, H., and Zhou, H.H. False discovery rate control with
@@ -64,13 +61,13 @@ Oracle.GBH(unadj.p, groups, pi.groups, alpha)
 }
 
 \seealso{
+  \code{\link{GBH}}
   \code{\link{estimate.pi0}}
   \code{\link{Adaptive.GBH}}
 }
 
 \examples{
 # A very simple example, with only 5 hypotheses.
-
 unadjp <- c(0.002, 0.1, 0.001, 0.01, 0.4)
 names(unadjp) <- paste("hyp", 1:5)
 groups <- c(1, 2, 1, 2, 2)
