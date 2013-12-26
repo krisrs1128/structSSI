@@ -7,45 +7,88 @@
 \alias{summary,GBH-method}
 
 \title{Class \code{"GBH"}}
-\description{
-%%  ~~ A concise (1-5 lines) description of what the class is. ~~
-}
-\section{Objects from the Class}{
-Objects can be created by calls of the form \code{new("GBH", ...)}.
-%%  ~~ describe objects here ~~ 
-}
+\description{Class to facilitate performing the Group
+  Benjamini-Hochberg procedure and interpreting its output. }
+
 \section{Slots}{
   \describe{
-    \item{\code{GBH.adjust}:}{Object of class \code{"data.frame"} ~~ }
-    \item{\code{pi0}:}{Object of class \code{"numeric"} ~~ }
-    \item{\code{adaptive}:}{Object of class \code{"logical"} ~~ }
-    \item{\code{alpha}:}{Object of class \code{"numeric"} ~~ }
+    \item{\code{GBH.adjust}:}{Object of class \code{"data.frame"}. Each
+      row correpsonds to an individual hypothesis. The first column
+      stores the p-values before GBH adjustment, while the second
+      gives the GBH adjusted p-values. The hypotheses are sorted
+      in order of significance according to these GBH adjusted
+      p-values. The \code{group} column gives the group membership
+      of each hypothesis, and \code{adj.significnace} codes the
+      significance of each hypothesis, according to the GBH adjusted
+      p-values.}
+    \item{\code{pi0}:}{Object of class \code{"numeric"}. The proportion
+      of null hypotheses within each group. This is either known
+      a priori or estimated adaptively from the unadjusted p-values.
+    }
+    \item{\code{adaptive}:}{Object of class \code{"logical"}. An
+      indicator of whether the proportion \code{pi0} was estimated
+      adaptively from the data or known a priori.}
+    \item{\code{alpha}:}{Object of class \code{"numeric"}. The level
+      at which the FDR is controlled, during the GBH procedure.}
   }
 }
 \section{Methods}{
   \describe{
-    \item{plot}{\code{signature(x = "GBH", y = "ANY")}: ... }
-    \item{show}{\code{signature(object = "GBH")}: ... }
-    \item{summary}{\code{signature(object = "GBH")}: ... }
-	 }
-}
+    \item{plot}{\code{signature(x = "GBH", adjust = T, y = "ANY")}:
+      ... }{Plots the p-values of the hypothesis, sorted according to
+      GBH adjusted significance and color coded according to group
+      membership.
+      The option \code{adjust} toggles the plot between GBH adjusted and
+      unadjusted p-values, though the indices remains consistent between
+      the plots.      
+    }
+    \item{show}{\code{signature(object = "GBH")}: ... }{Prints the
+      entire table of adjusted p-values and their associated FDR adjusted
+      significance levels, together with the estimated proportions
+      of null hypotheses, within each group.}
+    \item{summary}{\code{signature(object = "GBH")}: ... }{Prints
+      the most significant hypothesis, after adjusting for multiple
+      testing via GBH. Also supplies the estimated proportion of null
+      hypothesis within each group and a table of counts of
+      adjusted significance across groups.}
+    }
+  }
 \references{
-%%  ~~put references to the literature/web site here~~
+Hu, J.X., Zhao, H., and Zhou, H.H. False discovery rate control with
+  groups. Journal of the American Statistical Association, volume 104,
+  number 491. Pages 1215-1227. 2010.
 }
 \author{
-%%  ~~who you are~~
+Kris Sankaran
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%%  ~~objects to See Also as \code{\link{~~fun~~}}, ~~~
-%%  ~~or \code{\linkS4class{CLASSNAME}} for links to other classes ~~~
+  \code{\link{Adaptive.GBH}}
+  \code{\link{Oracle.GBH}}
 }
 \examples{
-showClass("GBH")
+## These are the unadjusted p-values corresponding to
+## the outcome of some multiple testing experiment. The
+## first 500 hypotheses are null and the last 1500 are
+## true alternatives.
+
+unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
+names(unadjp) <- paste("Hyp: ", 1:2000)
+
+## This is the expected format of the groups argument: a
+## numeric vector where the ith entry indicates the group
+## membership of hypothesis i. The entries are expected to be
+## between 1 and N, where N is the number of groups under
+## consideration. Notice here that there are two groups total
+## and that we have randomly assigned hypotheses to these two
+## groups.
+group.index <- c(sample(1:2, 2000, replace = TRUE))
+
+# Perform the GBH adjustment.
+result <-  Adaptive.GBH(unadjp, group.index, method = "storey")
+
+# A summary of the GBH adjustment
+summary(result)
 }
+
 \keyword{classes}

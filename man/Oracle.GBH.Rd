@@ -61,7 +61,7 @@ Oracle.GBH(unadj.p, group.index, pi.groups, alpha = 0.05)
 }
 
 \seealso{
-  \code{\link{GBH}}
+  \code{\link{GBH-class}}
   \code{\link{estimate.pi0}}
   \code{\link{Adaptive.GBH}}
 }

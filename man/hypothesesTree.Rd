@@ -2,6 +2,8 @@
 \Rdversion{1.1}
 \docType{class}
 \alias{hypothesesTree-class}
+\alias{plot,hypothesesTree,ANY-method}
+\alias{show,hypothesesTree-method}
 
 \title{Class \code{"hypothesesTree"}}
 \description{
@@ -60,7 +62,6 @@ Class for performing hierarchical multiple testing corrections.
 
 \seealso{
   \code{\link{hFDR.adjust}}
-  \code{\link{plot-methods}}
 }
 
 \examples{
