@@ -1,3 +1,6 @@
+
+
+
 \name{hypothesesTree-class}
 \Rdversion{1.1}
 \docType{class}
@@ -6,35 +9,33 @@
 \alias{show,hypothesesTree-method}
 
 \title{Class \code{"hypothesesTree"}}
+
 \description{
 Class for performing hierarchical multiple testing corrections.
 }
 
 \section{Slots}{
+
   \describe{
-    \item{\code{tree}:}{Object of class \code{"matrix"}. The adjacency
-  matrix for the tree. The ijth entry of the matrix is 0 if there is no
-  link between hypotheses i and j, and it is 1 otherwise.}
-    \item{\code{unadj.p.values}:}{Object of class \code{"numeric"}. A
-  vector of the uandjusted p-values resulting from some multiple testing
-  experiment. The \code{i}th element of this vector corresponds to
-  hypotheses \code{i} in the argument \code{hypotheses.names} and the
-  \code{i} row and column of the adjacency matrix in \code{tree}.}
-    \item{\code{adj.p.values}:}{Object of class \code{"numeric"}. A
-  vector of the p-values for these hypotheses after a multiple testing
-  correction has been performed.}
-    \item{\code{hypotheses.names}:}{Object of class
-  \code{"character"}. A vector of the names of the  hypotheses under
-  consideration. The hypotheses in position \code{i} of this vector
-  corresponds to the \code{i}th row and column of the adjacency matrix.
-  }
-    \item{\code{rejected.hypotheses}:}{Object of class
-  \code{"character"} A vector of those hypotheses that were rejeceted by
-  some unprespecified testing procedure.}
+    \item{\code{tree}:}{Object of class \code{"matrix"}. The edgelist
+      for the hypotheses tree.}
+    \item{\code{p.vals}:}{Object of class \code{"data.frame"}. Each
+      row correpsonds to an individual hypothesis. The first column
+      stores the p-values before GBH adjustment, while the second
+      gives the hFDR adjusted p-values. The hypotheses are sorted
+      in order of significance according to these GBH adjusted
+      p-values. The \code{group} column gives the group membership
+      of each hypothesis, and \code{adj.significnace} codes the
+      significance of each hypothesis, according to the GBH adjusted
+      p-values.}
+    \item{\code{alpha}:}{Object of class \code{"numeric"}. The
+      level at which the FDR is controlled among children
+      of each parent node.}
   }
 }
+  
 \section{Methods}{
-  \describe{
+    \describe{
     \item{initialize}{\code{signature(.Object = "hypothesesTree")}:
       ...}{
       Check that the hypotheses tree is correctly initialized. It

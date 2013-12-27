@@ -1,6 +1,6 @@
 importFrom(igraph, get.adjacency)
 importFrom(igraph, get.edgelist)
-importFrom(igraph, graph.adjacency)
+importFrom(igraph, graph.edgelist)
 importFrom(multtest, mt.rawp2adjp)
 importFrom(multtest, mt.reject)
 importFrom(methods, new)

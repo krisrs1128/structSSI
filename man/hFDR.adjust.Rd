@@ -27,20 +27,27 @@ FDR Controlling Procedure for Hierarchically Structured Hypotheses
 
 \usage{
 
-hFDR.adjust(hyp.tree, alpha = 0.05)
+hFDR.adjust(unadjp, tree.el, alpha = 0.05)
 
 }
 
 \arguments{
-  \item{hyp.tree}{
-    An object of class \code{hypothesesTree}.
-}
+  \item{unadjp}{A vector of raw p-values resulting from an
+    experiment. The names of this vector should be contained
+    in the edgelist parameterizing the hierarchical structure between
+    hypothesis, inputted as \code{tree.el}.
+  }
+  \item{tree.el}{The edgelist parameterizing the hierarchical
+    structure between hypotheses. The edges must be stored so that
+    each edge is a row of a two column matrix, where the first
+    column gives the parent and the second gives the child.}
+  
   \item{alpha}{
     The level of FDR control within families of the tree. Note that this
-  is NOT necessarily the level of FDR control within the entire
-  tree. Refer to the paper by Yekutieli and Benjamini for bounds on
-  various FDR criterion.
-}
+    is NOT necessarily the level of FDR control within the entire
+    tree. Refer to the paper by Yekutieli and Benjamini for bounds on
+    various FDR criterion.
+  }
 }
 \details{
   The FDR controlling procedure is described in more detail in the paper
@@ -58,11 +65,7 @@ hFDR.adjust(hyp.tree, alpha = 0.05)
 }
 
 \value{
-
-  A list where the first element contains a character vector of the names
-  of those hypotheses that were rejected and the second element contains
-  a vector of the adjusted p-values resulting from the procedure.
-
+  An object of class \code{hypothesesTree}.
 }
 
 \references{
@@ -101,4 +104,5 @@ plot(hyp.tree, adjust = FALSE)
 plot(hyp.tree, adjust = TRUE)
 }
 
+\seealso{\code{\link{hypothesesTree-class}}}
 \keyword{ ~htest }

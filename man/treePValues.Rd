@@ -6,7 +6,6 @@ Create tree of p-values for phyloseq data
 }
 
 \description{
-
   This helper function is used to aggregate abundances of individual
   microbes to higher levels in the tree and test whether those
   aggregated abundances are significantly different between
@@ -19,8 +18,8 @@ treePValues(tree, abundances, environments)
 
 \arguments{
   \item{tree}{
-    A phyloseq class phylogenetic tree containing the phylogenetic
-  relationships between different microbes.
+    An edgelist for a tree containing the phylogenetic
+    relationships between different microbes.
   }
   \item{abundances}{
     A phyloseq class OTU table specifying the abundances of different
@@ -52,6 +51,6 @@ GP.chl <- subset_taxa(GlobalPatterns, Phylum == "Chlamydiae")
 abundances <- otu_table(GP.chl)
 environments <- sample_data(GP.chl)$SampleType
 
-GPChltree <- get.adjacency(as.igraph(phy_tree(GP.chl)))
+GPChltree <- get.edgelist(as.igraph(phy_tree(GP.chl)))
 ChlPVal <- treePValues(GPChltree, abundances, environments)
 }

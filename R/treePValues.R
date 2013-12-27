@@ -1,7 +1,6 @@
-
 treePValues <- function(tree, abundances, environments){
 
-  igraphTree <- graph.adjacency(tree)
+  igraphTree <- graph.edgelist(tree)
   
   treePValues <- vector(length = length(V(igraphTree)))
   names(treePValues) <- V(igraphTree)$name
@@ -11,7 +10,6 @@ treePValues <- function(tree, abundances, environments){
     
     ## first, aggregate data descending ##
     ## from that node ##
-    
     graphDiameter <- diameter(igraphTree)
     curVertexName <- V(igraphTree)[vertex]$name
     descendants <- neighborhood(igraphTree, nodes = curVertexName, mode = "out", order = graphDiameter)
@@ -19,7 +17,6 @@ treePValues <- function(tree, abundances, environments){
 
     ## some nodes don't have descendants that are in the OTU table,
     ## so we can't consider them in the p-value calculations.
-
     allDescendantsNames <- V(subtree)$name
     namesInTipsIndex <- which(allDescendantsNames %in% rownames(abundances))
 

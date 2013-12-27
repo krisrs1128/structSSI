@@ -28,5 +28,3 @@ hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
     hyp.tree@p.vals[, 'adj.significance'] <- SignificanceStars(alpha, hyp.tree@p.vals[, 'adjp'])
     return(hyp.tree)
 }
-
-

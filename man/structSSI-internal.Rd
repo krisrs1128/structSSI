@@ -4,16 +4,16 @@
 \alias{pi0.lsl}
 \alias{StepUp}
 \alias{SignificanceStars}
-\alias{plotUnadjustedHypothesesTree}
-\alias{plotAdjustedHypothesesTree}
 \alias{validHypothesesTree}
 \alias{initialize-methods}
 \alias{show-methods}
 \alias{plot-methods}
-\alias{BuildEdgelist}
+\alias{FindRoot}
 \alias{HypTreeJSON}
 \alias{ListTreePval}
 \alias{PlotHypTree}
+\alias{hFDR.internal}
+
 
 \title{
   Internal structSSI Functions
