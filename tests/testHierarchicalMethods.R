@@ -4,31 +4,24 @@ set.seed(130229)
 library('structSSI')
 library('ape')
 library('igraph')
-tree.1 <- as.matrix(get.adjacency(as.igraph(rtree(10))))
-tree.2 <- as.matrix(get.adjacency(as.igraph(rtree(50))))
+tree.1 <- as.igraph(rtree(10))
+tree.2 <- as.igraph(rtree(50))
 
-hypotheses.names.1 <- paste("hyp", c(1:19))
-hypotheses.names.2 <- paste("hyp", c(1:99))
+V(tree.1)$name <- paste("hyp", c(1:19))
+V(tree.2)$name <- paste("hyp", c(1:99))
+tree.1.el <- get.edgelist(tree.1)
+tree.2.el <- get.edgelist(tree.2)
 
 unadjp.1 <- c(runif(5, 0, 0.01), runif(14, 0, 1))
+names(unadjp.1) <- paste("hyp", c(1:19))
 unadjp.2 <- c(runif(10, 0.01), runif(89, 0, 1))
-
-hypotheses.tree.1 <- new("hypothesesTree", tree = tree.1, unadj.p.values = unadjp.1, hypotheses.names = hypotheses.names.1)
-hypotheses.tree.2 <- new("hypothesesTree", tree = tree.2, unadj.p.values = unadjp.2, hypotheses.names = hypotheses.names.2)
-
-hypotheses.tree.1
-hypotheses.tree.2
+names(unadjp.2) <- paste("hyp", c(1:99))
 
 ## The  hierarchical adjustment procedure
 ## applied to this class.
-
-adjust1 <- hFDR.adjust(hypotheses.tree.1, 0.05)
-adjust2 <- hFDR.adjust(hypotheses.tree.2, 0.05) # Correctly gives warning.
+adjust1 <- hFDR.adjust(unadjp.1, tree.1.el)
+adjust2 <- hFDR.adjust(unadjp.2, tree.2.el) # Correctly gives warning.
 
 ## Can plot results for the tree without the warning.
+plot(adjust1)
 
-hypotheses.tree.1@rejected.hypotheses <- adjust1$rejected.hypotheses
-hypotheses.tree.1@adj.p.values <- adjust1$adjp.values
-
-plot(hypotheses.tree.1)
-plot(hypotheses.tree.1, alpha = 0.05)

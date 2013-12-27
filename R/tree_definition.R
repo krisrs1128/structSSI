@@ -8,10 +8,8 @@ setClass("hypothesesTree", representation = list(tree = "matrix",
                                p.vals = "data.frame",
                                alpha = "numeric"))
 
-setMethod("initialize", "hypothesesTree", function(.Object, ...)
-      {
+setMethod("initialize", "hypothesesTree", function(.Object, ...) {
           value <- callNextMethod()
-          validObject(value)
           value
       })
 
@@ -20,8 +18,9 @@ setMethod("show", "hypothesesTree", function(object)
           tree <- slot(object, "tree")
           p.vals <- slot(object, "p.vals")
           alpha <- slot(object, "alpha")
-          nHypotheses <- nrow(tree)
-          igraph.tree <- graph.adjacency(tree)
+
+          igraph.tree <- graph.edgelist(tree)
+          nHypotheses <- length(V(igraph.tree))
           nEdges <- length(E(igraph.tree))
           cat("\n", "Number of hypotheses:", "\n")
           print(nHypotheses)
@@ -32,14 +31,7 @@ setMethod("show", "hypothesesTree", function(object)
           cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')          
       })
 
-
-setMethod("plot", "hypothesesTree", function(x,..., p.values.type = "unadjusted", alpha = 0.05)
-      {
-          p.values.type <- tolower(p.values.type)
-          p.values.type <- match.arg(p.values.type, c("unadjusted", "adjusted"))
-          if(p.values.type == "unadjusted"){
-            plotUnadjustedHypothesesTree(x, alpha)
-          } else if(p.values.type == "adjusted"){
-            plotAdjustedHypothesesTree(x)
-          }
-        })
+setMethod("plot", "hypothesesTree", function(x,..., adjust = T, json_file = 'hyp_tree.JSON', html_file = 'hyp_tree.html')
+          {
+              PlotHypTree(x, adjust, json_file, html_file)
+          })

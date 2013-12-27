@@ -5,8 +5,8 @@
 validHypothesesTree <- function(object){
     p.vals <- slot(object, "p.vals")
     tree <- slot(object, "tree")
-    if(nrow(tree) != ncol(tree)){
-        return("Adjacency matrix for '@tree' is invalid, does not have equal number of rows and columns.")
+    if(ncol(tree) != 2){
+        return("Edgelist for '@tree' is invalid, does not two columns (parent -> child).")
     }
     if(nrow(p.vals) != nrow(tree)){
         return("Number of hypotheses in '@p.vals' does not match number of nodes in hypotheses tree in '@tree'")

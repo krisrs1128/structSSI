@@ -76,37 +76,29 @@ hypotheses. 2002.
 
 }
 
-\author{
-
-  Kris Sankaran
-
-}
+\author{Kris Sankaran}
 
 \examples{
 library('igraph')
 library('ape')
 
-set.seed(12309)
-tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
-hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
 unadj.p.values <- vector("numeric", length = 49)
-unadj.p.values[alternative.indices] <- runif(30, 0, 0.001)
+unadj.p.values[alternative.indices] <- runif(30, 0, 0.01)
 unadj.p.values[-alternative.indices] <- runif(19, 0, 1)
-unadj.p.values[c(1:5)] <- runif(5, 0, 0.0001)
+unadj.p.values[c(1:5)] <- runif(5, 0, 0.01)
+names(unadj.p.values) <- paste("Hyp ", c(1:49))
 
-hyp.tree <- new("hypothesesTree", tree = tree,
-                 hypotheses.names = hypotheses.names,
-                 unadj.p.values = unadj.p.values)
+tree <- as.igraph(rtree(25))
+V(tree)$name <- names(unadj.p.values)
+tree.el <- get.edgelist(tree)
 
-hyp.tree.adjust <- hFDR.adjust(hyp.tree, 0.05)
-hyp.tree@rejected.hypotheses <- hyp.tree.adjust$rejected.hypotheses
-hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
+hyp.tree <- hFDR.adjust(unadj.p.values, tree.el, 0.05)
 
 ## We can visualize the difference between the unadjusted and the
 ## adjusted trees.
-plot(hyp.tree, 0.05)
-plot(hyp.tree)
+plot(hyp.tree, adjust = FALSE)
+plot(hyp.tree, adjust = TRUE)
 }
 
 \keyword{ ~htest }

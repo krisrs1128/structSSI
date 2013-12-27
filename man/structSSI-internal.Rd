@@ -10,6 +10,11 @@
 \alias{initialize-methods}
 \alias{show-methods}
 \alias{plot-methods}
+\alias{BuildEdgelist}
+\alias{HypTreeJSON}
+\alias{ListTreePval}
+\alias{PlotHypTree}
+
 \title{
   Internal structSSI Functions
 }

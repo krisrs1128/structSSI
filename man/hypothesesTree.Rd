@@ -66,20 +66,22 @@ Class for performing hierarchical multiple testing corrections.
 
 \examples{
 
-library('ape')
 library('igraph')
-tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
-hypotheses.names <- paste("Hyp ", c(1:49))
+library('ape')
+
 alternative.indices <- sample(1:49, 30)
 unadj.p.values <- vector("numeric", length = 49)
-unadj.p.values[alternative.indices] <- runif(30, 0, 0.001)
+unadj.p.values[alternative.indices] <- runif(30, 0, 0.01)
 unadj.p.values[-alternative.indices] <- runif(19, 0, 1)
-unadj.p.values[c(1:5)] <- runif(5, 0, 0.0001)
+unadj.p.values[c(1:5)] <- runif(5, 0, 0.01)
+names(unadj.p.values) <- paste("Hyp ", c(1:49))
 
-hyp.tree <- new("hypothesesTree", tree = tree,
-                 hypotheses.names = hypotheses.names,
-                 unadj.p.values = unadj.p.values)
+tree <- as.igraph(rtree(25))
+V(tree)$name <- names(unadj.p.values)
+tree.el <- get.edgelist(tree)
 
+hyp.tree <- hFDR.adjust(unadj.p.values, tree.el, 0.05)
+plot(hyp.tree)
 }
 
 \keyword{classes}

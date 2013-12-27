@@ -90,24 +90,17 @@ result <- Adaptive.GBH(unadjp, groups, method = "lsl", alpha = 0.05)
 library('igraph')
 library('ape')
 
-tree <- as.matrix(get.adjacency(as.igraph(rtree(25)), sparse = FALSE))
-hypotheses.names <- paste("Hyp ", c(1:49))
 alternative.indices <- sample(1:49, 30)
-
-# Simulating the results of a multiple testing experiment.
-
 unadj.p.values <- vector("numeric", length = 49)
-unadj.p.values[alternative.indices] <- runif(30, 0, 0.001)
-unadj.p.values[-alternative.indices][1:4] <- runif(4 , 0, 1)
-unadj.p.values[-alternative.indices][5:19] <- runif(15, 0, 0.7)
-unadj.p.values[c(1:5)] <- runif(5, 0, 0.0001)
+unadj.p.values[alternative.indices] <- runif(30, 0, 0.01)
+unadj.p.values[-alternative.indices] <- runif(19, 0, 1)
+unadj.p.values[c(1:5)] <- runif(5, 0, 0.01)
+names(unadj.p.values) <- paste("Hyp ", c(1:49))
 
-hyp.tree <- new("hypothesesTree", tree = tree,
-                 hypotheses.names = hypotheses.names,
-                 unadj.p.values = unadj.p.values)
+tree <- as.igraph(rtree(25))
+V(tree)$name <- names(unadj.p.values)
+tree.el <- get.edgelist(tree)
 
-hyp.tree.adjust <- hFDR.adjust(hyp.tree, 0.05)
-hyp.tree@rejected.hypotheses <- hyp.tree.adjust$rejected.hypotheses
-hyp.tree@adj.p.values <- hyp.tree.adjust$adjp.values
+hyp.tree <- hFDR.adjust(unadj.p.values, tree.el, 0.05)
 plot(hyp.tree)
 }
