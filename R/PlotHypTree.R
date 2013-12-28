@@ -1,5 +1,3 @@
-
-
 PlotHypTree <- function(hyp.tree, adjust = TRUE,
                         return_script = FALSE, width = 900,
                         height = 900, base_font_size = 12,
@@ -79,8 +77,8 @@ node.append("circle")
     .attr("r", 5);
 
 node.append("text")
-    .attr("dx", -8)
-    .attr("dy", -8)
+    .attr("dx", function(d) {return d.children ? -8 : 8;})
+    .attr("dy", function(d) {return d.children ? -8 : 0;})
     .attr("text-anchor","start")
     .style("font", "', base_font_size, 'px sans-serif")
     .style("fill", function(d) { return newScale(d.pval);})
