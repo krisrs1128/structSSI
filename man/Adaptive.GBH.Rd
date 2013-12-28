@@ -70,17 +70,11 @@ references below).
 ## the outcome of some multiple testing experiment. The
 ## first 500 hypotheses are null and the last 1500 are
 ## true alternatives.
-
 unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
 names(unadjp) <- paste("Hyp: ", 1:2000)
 
-## This is the expected format of the groups argument: a
-## numeric vector where the ith entry indicates the group
-## membership of hypothesis i. The entries are expected to be
-## between 1 and N, where N is the number of groups under
-## consideration. Notice here that there are two groups total
-## and that we have randomly assigned hypotheses to these two
-## groups.
+## Here there are two groups total we have randomly
+##  assigned hypotheses to these two groups.
 group.index <- c(sample(1:2, 2000, replace = TRUE))
 
 # Perform the GBH adjustment.
