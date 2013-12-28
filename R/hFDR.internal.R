@@ -4,8 +4,7 @@ hFDR.internal <- function(hyp.tree) {
                               'child' = hyp.tree@tree[, 2],
                               stringsAsFactors = F)
     root <- FindRoot(tree.el.tmp)
-    
-    children <- subset(tree.el.tmp, subset = parent == root)$child
+    children <- tree.el.tmp[which(tree.el.tmp$parent == root), 'child']
     children.p.vals <- hyp.tree@p.vals[children, ]
     adjust <- mt.rawp2adjp(children.p.vals$unadjp, 'BH')
     children.p.vals$adjp <- adjust$adjp[adjust$index, 'BH']

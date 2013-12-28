@@ -8,5 +8,5 @@ Maintainer: Kris Sankaran <kriss1@stanford.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
 Depends: methods
-Imports: multtest, igraph, RJSONIO, ggplot2, reshape2, R2HTML
+Imports: multtest, igraph, rjson, ggplot2, reshape2
 Suggests: ape, phyloseq

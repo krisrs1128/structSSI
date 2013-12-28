@@ -1,4 +1,4 @@
-HypTreeJSON <- function(hyp.tree, type = 'unadjusted', file = 'hyp_tree.JSON') {
+HypTreeJSON <- function(hyp.tree, type = 'unadjusted') {
     tree <- graph.edgelist(hyp.tree@tree)
     V(tree)$names <- rownames(hyp.tree@p.vals)
     if(type == 'adjusted') {
@@ -6,5 +6,5 @@ HypTreeJSON <- function(hyp.tree, type = 'unadjusted', file = 'hyp_tree.JSON') {
     } else {
         V(tree)$pval <- round(hyp.tree@p.vals[, 'unadjp'], 5)
     }
-    writeLines(toJSON(ListTreePval(tree)), con = file)
+    rjson::toJSON(ListTreePval(tree))
 }

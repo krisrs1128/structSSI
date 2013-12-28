@@ -42,15 +42,13 @@ treePValues(tree, abundances, environments)
 }
 
 \examples{
-## Load data from the phyloseq package
+library('phyloseq')
 library('igraph')
 library('ape')
-library('phyloseq')
-data(GlobalPatterns)
-GP.chl <- subset_taxa(GlobalPatterns, Phylum == "Chlamydiae")
-abundances <- otu_table(GP.chl)
-environments <- sample_data(GP.chl)$SampleType
+data(chlamydiae)
+abundances <- otu_table(chlamydiae)
+environments <- sample_data(chlamydiae)$SampleType
 
-GPChltree <- get.edgelist(as.igraph(phy_tree(GP.chl)))
-ChlPVal <- treePValues(GPChltree, abundances, environments)
+ch.tree <- get.edgelist(as.igraph(phy_tree(chlamydiae)))
+ch.pval <- treePValues(ch.tree, abundances, environments)
 }

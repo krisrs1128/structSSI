@@ -28,7 +28,6 @@ phyloseq-class experiment-level object.
   \url{http://www.pnas.org/content/108/suppl.1/4516.short}
 }
 \examples{
-library('phyloseq')
 data(chlamydiae)
 }
 \keyword{datasets}

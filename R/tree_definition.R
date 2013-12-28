@@ -31,13 +31,11 @@ setMethod("show", "hypothesesTree", function(object)
           cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')          
       })
 
-setMethod("plot", "hypothesesTree", function(x,..., adjust = TRUE,
-                        output_script = FALSE, width = 1200,
-                        height = 1000, base_font_size = 12,
-                        json_file = 'hyp_tree.JSON',
-                        html_file = 'hyp_tree.html')
-          {
-              PlotHypTree(x, adjust, output_script,
-                          width, height, base_font_size,
-                          json_file, html_file)
+setMethod("plot", "hypothesesTree",
+          function(x,..., adjust = TRUE,
+                   return_script = FALSE, width = 900,
+                   height = 900, base_font_size = 12,
+                   output_file_name = paste('hyp_tree', gsub("[^\\d]+", "", Sys.time(), perl=TRUE), '.html', sep = "")) {
+              PlotHypTree(x, adjust, return_script, width,
+                          height, base_font_size, output_file_name)
           })
