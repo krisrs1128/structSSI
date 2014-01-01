@@ -33,7 +33,7 @@ setMethod("summary", "GBH", function(object) {
     n.to.print <- min(nrow(p.vals), 10)
     cat('\n ', 'GBH adjusted p values:', '\n')
     print(object@p.vals[1:n.to.print, ])
-    if(n.to.print < nrow(p.vals)) {
+    if(n.to.print < nrow(object@p.vals)) {
         cat('\n', '[only 10 most significant hypotheses shown]', '\n')
     }
     alpha <- object@alpha
@@ -46,16 +46,13 @@ setMethod("plot", "GBH", function(x,..., adjust = TRUE) {
     GBH <- data.frame(x@p.vals)
     GBH[, 'sorted.hyp'] <- 1:nrow(GBH)
     GBH[, 'group'] <- as.factor(GBH[, 'group'])
-    if(adjust) {
-        p <- ggplot(GBH) +
-                geom_point(aes(x = sorted.hyp, y = adjp, col = group)) +
-                geom_hline(yintercept = alpha, linetype = 2) + 
-                ggtitle('GBH Adjusted p values')
-    } else {
-        p <- ggplot(GBH) +
-                geom_point(aes(x = sorted.hyp, y = unadjp, col = group)) +
-                geom_hline(yintercept = alpha, linetype = 2) + 
-                ggtitle('Unadjusted p values')
-    }
+
+    mGBH <- melt(GBH[, -4], id.vars = c('sorted.hyp', 'group'))
+    colnames(mGBH) <- c('sorted.hyp', 'group', 'type', 'pval')
+    mGBH[, 'pval'] <- as.numeric(mGBH[, 'pval'])
+    p <- ggplot(mGBH) + 
+        geom_point(aes(x = sorted.hyp, y = pval, shape = group, col = type)) +
+        geom_hline(yintercept = alpha, linetype = 2) +
+        ggtitle('GBH Adjustment')
     return(p)
 })
