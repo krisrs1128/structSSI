@@ -38,14 +38,11 @@
 }
 \section{Methods}{
   \describe{
-    \item{plot}{\code{signature(x = "GBH", adjust = T, y = "ANY")}:
+    \item{plot}{\code{signature(x = "GBH", y = "ANY")}:
       ... }{Plots the p-values of the hypothesis, sorted according to
-      GBH adjusted significance and color coded according to group
-      membership.
-      The option \code{adjust} toggles the plot between GBH adjusted and
-      unadjusted p-values, though the indices remains consistent between
-      the plots.      
-    }
+      GBH adjusted significance, shape coded according to group
+      membership, and color coded according to pre and post
+      GBH p-value adjustment.}
     \item{show}{\code{signature(object = "GBH")}: ... }{Prints the
       entire table of adjusted p-values and their associated FDR adjusted
       significance levels, together with the estimated proportions
