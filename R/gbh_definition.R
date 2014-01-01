@@ -41,7 +41,7 @@ setMethod("summary", "GBH", function(object) {
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
 })
 
-setMethod("plot", "GBH", function(x,..., adjust = TRUE) {
+setMethod("plot", "GBH", function(x,..., title = 'GBH Adjustment') {
     alpha <- x@alpha
     GBH <- data.frame(x@p.vals)
     GBH[, 'sorted.hyp'] <- 1:nrow(GBH)
@@ -53,6 +53,6 @@ setMethod("plot", "GBH", function(x,..., adjust = TRUE) {
     p <- ggplot(mGBH) + 
         geom_point(aes(x = sorted.hyp, y = pval, shape = group, col = type)) +
         geom_hline(yintercept = alpha, linetype = 2) +
-        ggtitle('GBH Adjustment')
+        ggtitle(title)
     return(p)
 })

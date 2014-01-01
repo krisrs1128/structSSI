@@ -58,7 +58,12 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     p.weighted <- sorting.weighted.p$x
     p.weighted.index <- sorting.weighted.p$ix
 
-    adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
+    if(pi0 < 1) {
+        adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
+    } else {
+        adjp.temp <- p.weighted
+    }
+    
     adjp <- StepUp(adjp.temp)
 
     p.vals <- data.frame('unadjp' = unadj.p[p.weighted.index],

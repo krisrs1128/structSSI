@@ -54,6 +54,7 @@ Adaptive.GBH <- function(unadj.p, group.index, alpha = 0.05,
             pi.groups[i] <- pi0.tst(unadj.p[which(group.index == groups[i])], alpha)
         }
     }
+    
     result <- Oracle.GBH(unadj.p, group.index, pi.groups, alpha)
     result@adaptive <- T
     return (result)
