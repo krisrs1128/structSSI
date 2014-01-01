@@ -2,7 +2,7 @@
 ## The methods defined here should ease user interaction
 ## with the output from this procedure.
 
-setClass("GBH", representation = list(GBH.adjust = "data.frame",
+setClass("GBH", representation = list(p.vals = "data.frame",
                     pi0 = "numeric", adaptive = "logical",
                     alpha = "numeric"))
 
@@ -14,9 +14,9 @@ setMethod("initialize", "GBH", function(.Object, ...) {
 setMethod("show", "GBH", function(object) {
     cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
     print(object@pi0)
-    GBH.adjust <- object@GBH.adjust
+    p.vals <- object@p.vals
     cat('\n ', 'GBH adjusted p values:', '\n')
-    print(GBH.adjust)
+    print(p.vals)
     cat('\n', '---', '\n')
     alpha <- object@alpha
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
@@ -26,14 +26,14 @@ setMethod("summary", "GBH", function(object) {
     cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
     print(object@pi0)
     
-    GBH.adjust <- object@GBH.adjust
+    p.vals <- object@p.vals
     cat('\n', 'Significance across groups:', '\n')
-    print(table(GBH.adjust[, c('group', 'adj.significance')]))
+    print(table(p.vals[, c('group', 'adj.significance')]))
     
-    n.to.print <- min(nrow(GBH.adjust), 10)
+    n.to.print <- min(nrow(p.vals), 10)
     cat('\n ', 'GBH adjusted p values:', '\n')
-    print(object@GBH.adjust[1:n.to.print, ])
-    if(n.to.print < nrow(GBH.adjust)) {
+    print(object@p.vals[1:n.to.print, ])
+    if(n.to.print < nrow(p.vals)) {
         cat('\n', '[only 10 most significant hypotheses shown]', '\n')
     }
     alpha <- object@alpha
@@ -43,7 +43,7 @@ setMethod("summary", "GBH", function(object) {
 
 setMethod("plot", "GBH", function(x,..., adjust = TRUE) {
     alpha <- x@alpha
-    GBH <- data.frame(x@GBH.adjust)
+    GBH <- data.frame(x@p.vals)
     GBH[, 'sorted.hyp'] <- 1:nrow(GBH)
     GBH[, 'group'] <- as.factor(GBH[, 'group'])
     if(adjust) {

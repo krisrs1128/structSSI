@@ -40,6 +40,8 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     p.weighted <- unadj.p
     N <- length(unadj.p)
 
+    names.sort <- sort(names(pi.groups))
+    pi0 <- 1/N * sum(n_g[names.sort] * pi.groups[names.sort])
     n_g <- table(group.index)
     pi0 <- 1/N * sum(n_g * pi.groups)
 
@@ -60,12 +62,12 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
     adjp <- StepUp(adjp.temp)
 
-    GBH.adjust <- data.frame('unadjp' = unadj.p[p.weighted.index],
-                             'adjp' = adjp,
-                             'group' = group.index[p.weighted.index],
-                             'adj.significance' = SignificanceStars(alpha, adjp))
+    p.vals <- data.frame('unadjp' = unadj.p[p.weighted.index],
+                         'adjp' = adjp,
+                         'group' = group.index[p.weighted.index],
+                         'adj.significance' = SignificanceStars(alpha, adjp))
     rownames(GBH.adjust) <- names(unadj.p)[p.weighted.index]
-    GBH.result <- new('GBH', GBH.adjust = GBH.adjust,
+    GBH.result <- new('GBH', p.vals = p.vals,
                       pi0 = pi.groups, adaptive = F, alpha = alpha)
     return(GBH.result)
 }
