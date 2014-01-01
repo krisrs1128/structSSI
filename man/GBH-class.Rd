@@ -16,7 +16,7 @@
 
 \section{Slots}{
   \describe{
-    \item{\code{GBH.adjust}:}{Object of class \code{"data.frame"}. Each
+    \item{\code{p.vals}:}{Object of class \code{"data.frame"}. Each
       row correpsonds to an individual hypothesis. The first column
       stores the p-values before GBH adjustment, while the second
       gives the GBH adjusted p-values. The hypotheses are sorted

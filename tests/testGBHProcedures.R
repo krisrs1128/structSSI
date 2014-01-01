@@ -32,7 +32,7 @@ unadjp.2 <- c(runif(100, 0, 0.05), runif(900, 0, 1))
 names(unadjp.2) <- paste("hyp: ", 1:1000)
 groups.2 <- c(rep(1, 500), rep(2, 500))
 result.2 <- Adaptive.GBH(unadjp.2, groups.2, method = "lsl", alpha = 0.05)
-head(result.2@GBH.adjust)
+head(result.2@p.vals)
 head(result.2@pi0)
 head(result.2@adaptive)
 

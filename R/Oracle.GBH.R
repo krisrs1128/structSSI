@@ -41,9 +41,8 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     N <- length(unadj.p)
 
     names.sort <- sort(names(pi.groups))
-    pi0 <- 1/N * sum(n_g[names.sort] * pi.groups[names.sort])
     n_g <- table(group.index)
-    pi0 <- 1/N * sum(n_g * pi.groups)
+    pi0 <- 1/N * sum(n_g[names.sort] * pi.groups[names.sort])
 
     # The first part of the procedure involves weighting p-values. This is where the
     # known group structure information is being explicitly accounted for.
@@ -66,7 +65,7 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
                          'adjp' = adjp,
                          'group' = group.index[p.weighted.index],
                          'adj.significance' = SignificanceStars(alpha, adjp))
-    rownames(GBH.adjust) <- names(unadj.p)[p.weighted.index]
+    rownames(p.vals) <- names(unadj.p)[p.weighted.index]
     GBH.result <- new('GBH', p.vals = p.vals,
                       pi0 = pi.groups, adaptive = F, alpha = alpha)
     return(GBH.result)

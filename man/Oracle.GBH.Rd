@@ -89,6 +89,6 @@ for(i in 1:2){
 
 result <- Oracle.GBH(unadjp.2, groups.2, pi.groups, 0.05)
 result@pi0
-result@GBH.adjust
+result@p.vals
 }
 \keyword{ ~htest }
