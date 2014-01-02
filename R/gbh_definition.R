@@ -17,7 +17,7 @@ setMethod("show", "GBH", function(object) {
     p.vals <- object@p.vals
     cat('\n ', 'GBH adjusted p values:', '\n')
     print(p.vals)
-    cat('\n', '---', '\n')
+    cat('---', '\n')
     alpha <- object@alpha
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
 })
@@ -53,6 +53,7 @@ setMethod("plot", "GBH", function(x,..., title = 'GBH Adjustment') {
     p <- ggplot(mGBH) + 
         geom_point(aes(x = sorted.hyp, y = pval, shape = group, col = type)) +
         geom_hline(yintercept = alpha, linetype = 2) +
+        x_scale_discrete('Hypotheses sorted by adjp') + 
         ggtitle(title)
     return(p)
 })

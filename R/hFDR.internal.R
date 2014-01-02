@@ -7,7 +7,7 @@ hFDR.internal <- function(hyp.tree) {
     children <- tree.el.tmp[which(tree.el.tmp$parent == root), 'child']
     children.p.vals <- hyp.tree@p.vals[children, ]
     adjust <- mt.rawp2adjp(children.p.vals$unadjp, 'BH')
-    children.p.vals$adjp <- adjust$adjp[adjust$index, 'BH']
+    children.p.vals$adjp <- adjust$adjp[order(adjust$index), 'BH']
     hyp.tree@p.vals[children, 'adjp'] <- children.p.vals$adjp
 
     rejected <- rownames(children.p.vals)[which(children.p.vals$adjp < hyp.tree@alpha)]

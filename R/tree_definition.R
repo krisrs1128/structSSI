@@ -28,6 +28,7 @@ setMethod("show", "hypothesesTree", function(object)
           print(nEdges)
           cat("\n", "hFDR adjusted p-values:", "\n")
           print(p.vals)
+          cat('---', '\n')          
           cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')          
       })
 
