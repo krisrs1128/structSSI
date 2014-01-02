@@ -53,7 +53,7 @@ setMethod("plot", "GBH", function(x,..., title = 'GBH Adjustment') {
     p <- ggplot(mGBH) + 
         geom_point(aes(x = sorted.hyp, y = pval, shape = group, col = type)) +
         geom_hline(yintercept = alpha, linetype = 2) +
-        x_scale_discrete('Hypotheses sorted by adjp') + 
+        scale_x_discrete('Hypotheses sorted by adjp') + 
         ggtitle(title)
     return(p)
 })
