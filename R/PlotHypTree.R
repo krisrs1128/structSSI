@@ -1,6 +1,6 @@
 PlotHypTree <- function(hyp.tree, adjust = TRUE,
                         return_script = FALSE, width = 900,
-                        height = 900, base_font_size = 12,
+                        height = 500, base_font_size = 12,
                         output_file_name = paste('hyp_tree', gsub("[^\\d]+", "", Sys.time(), perl=TRUE), '.html')) {
     if(adjust) {
         tree.json <- HypTreeJSON(hyp.tree, type = 'adjusted')
