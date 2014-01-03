@@ -12,14 +12,15 @@ setMethod("initialize", "GBH", function(.Object, ...) {
       })
 
 setMethod("show", "GBH", function(object) {
-    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
-    print(object@pi0)
     p.vals <- object@p.vals
-    cat('\n ', 'GBH adjusted p values:', '\n')
+    cat('GBH adjusted p values:', '\n')
     print(p.vals)
     cat('---', '\n')
     alpha <- object@alpha
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
+    cat('Estimated proportion of hypotheses that are null, within each group:', '\n')
+    print(object@pi0)
+
 })
 
 setMethod("summary", "GBH", function(object) {   
@@ -29,15 +30,15 @@ setMethod("summary", "GBH", function(object) {
     cat('GBH adjusted p values:', '\n')
     print(object@p.vals[1:n.to.print, ])
     if(n.to.print < nrow(object@p.vals)) {
-        cat('\n', '[only 10 most significant hypotheses shown]', '\n')
+        cat('[only 10 most significant hypotheses shown]', '\n')
     }
 
-    cat('\n', '---', '\n')
+    cat('---', '\n')
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
-    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
+    cat('Estimated proportion of hypotheses that are null, within each group:', '\n')
     print(object@pi0)
 
-    cat('\n', 'Significance across groups:', '\n')
+    cat('Significance across groups:', '\n')
     print(table(p.vals[, c('group', 'adj.significance')]))
 })
 
