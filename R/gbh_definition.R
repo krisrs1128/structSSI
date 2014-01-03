@@ -18,7 +18,7 @@ setMethod("show", "GBH", function(object) {
     cat('---', '\n')
     alpha <- object@alpha
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
-    cat('Estimated proportion of hypotheses that are null, within each group:', '\n')
+    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
     print(object@pi0)
 
 })
@@ -35,10 +35,10 @@ setMethod("summary", "GBH", function(object) {
 
     cat('---', '\n')
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
-    cat('Estimated proportion of hypotheses that are null, within each group:', '\n')
+    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
     print(object@pi0)
 
-    cat('Significance across groups:', '\n')
+    cat('\n', 'Significance across groups:', '\n')
     print(table(p.vals[, c('group', 'adj.significance')]))
 })
 
