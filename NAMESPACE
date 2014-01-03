@@ -25,6 +25,7 @@ importFrom(reshape2, melt)
 importFrom(rjson, toJSON)
 
 exportPattern("^[^\\.]")
-export(Adaptive.GBH, Oracle.GBH, estimate.pi0, hFDR.adjust)
+export(Adaptive.GBH, Oracle.GBH, estimate.pi0, hFDR.adjust,
+       EstimatedHFDRControl)
 exportMethods(show, summary, plot)
 exportClasses(hypothesesTree, GBH)

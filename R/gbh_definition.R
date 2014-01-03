@@ -23,22 +23,22 @@ setMethod("show", "GBH", function(object) {
 })
 
 setMethod("summary", "GBH", function(object) {   
-    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
-    print(object@pi0)
-    
     p.vals <- object@p.vals
-    cat('\n', 'Significance across groups:', '\n')
-    print(table(p.vals[, c('group', 'adj.significance')]))
-    
+    alpha <- object@alpha
     n.to.print <- min(nrow(p.vals), 10)
     cat('\n ', 'GBH adjusted p values:', '\n')
     print(object@p.vals[1:n.to.print, ])
     if(n.to.print < nrow(object@p.vals)) {
         cat('\n', '[only 10 most significant hypotheses shown]', '\n')
     }
-    alpha <- object@alpha
+
     cat('\n', '---', '\n')
     cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')
+    cat('\n', 'Estimated proportion of hypotheses that are null, within each group:', '\n')
+    print(object@pi0)
+
+    cat('\n', 'Significance across groups:', '\n')
+    print(table(p.vals[, c('group', 'adj.significance')]))
 })
 
 setMethod("plot", "GBH", function(x,..., title = 'GBH Adjustment') {
