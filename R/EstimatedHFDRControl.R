@@ -9,6 +9,7 @@ EstimatedHFDRControl <- function(hyp.tree) {
         (n.tree.discoveries + 1) * alpha)
     fdr.tip.est <-  min(1, (n.tip.discoveries + n.families.tested) /
         (n.tip.discoveries + 1) * alpha)
+
     return (list(tree = fdr.tree.est,
                  tip = fdr.tip.est,
                  n.families.tested = n.families.tested,
