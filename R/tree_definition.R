@@ -19,10 +19,21 @@ setMethod("show", "hypothesesTree", function(object)
           p.vals <- slot(object, "p.vals")
           alpha <- slot(object, "alpha")
 
+          cat("hFDR adjusted p-values:", "\n")
+          print(p.vals)
+          cat('---', '\n')          
+          cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')          
+      })
+
+setMethod("summary", "hypothesesTree", function(object) {
+          tree <- slot(object, "tree")
+          p.vals <- slot(object, "p.vals")
+          alpha <- slot(object, "alpha")
+
           igraph.tree <- graph.edgelist(tree)
           nHypotheses <- length(V(igraph.tree))
           nEdges <- length(E(igraph.tree))
-          cat("\n", "Number of hypotheses:", "\n")
+          cat("Number of hypotheses:", "\n")
           print(nHypotheses)
           cat("\n", "Number of tree edges: ", "\n")
           print(nEdges)
@@ -31,10 +42,17 @@ setMethod("show", "hypothesesTree", function(object)
           print(FDR.control$tree)
           cat("\n", "Estimated tips FDR: ", "\n")
           print(FDR.control$tip)
+
           cat("\n", "hFDR adjusted p-values:", "\n")
-          print(p.vals)
-          cat('---', '\n')          
-          cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'', alpha / 5, '\'*\'', alpha, '\'.\'', 2 * alpha, '\'-\' 1', '\n')          
+          n.to.print <- min(nrow(p.vals), 10)
+          print(object@p.vals[1:n.to.print, ])
+          if(n.to.print < nrow(object@p.vals)) {
+              cat('\n', '[only 10 most significant hypotheses shown]', '\n')
+          }
+          cat('\n', '---', '\n')
+          cat('Signif. codes:  0 \'***\'', alpha / 50, '\'**\'',
+              alpha / 5, '\'*\'', alpha, '\'.\'',
+              2 * alpha, '\'-\' 1', '\n')          
       })
 
 setMethod("plot", "hypothesesTree",

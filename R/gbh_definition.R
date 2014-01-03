@@ -26,7 +26,7 @@ setMethod("summary", "GBH", function(object) {
     p.vals <- object@p.vals
     alpha <- object@alpha
     n.to.print <- min(nrow(p.vals), 10)
-    cat('\n ', 'GBH adjusted p values:', '\n')
+    cat('GBH adjusted p values:', '\n')
     print(object@p.vals[1:n.to.print, ])
     if(n.to.print < nrow(object@p.vals)) {
         cat('\n', '[only 10 most significant hypotheses shown]', '\n')
