@@ -35,17 +35,19 @@ setMethod("summary", "hypothesesTree", function(object) {
           nEdges <- length(E(igraph.tree))
           cat("Number of hypotheses:", "\n")
           print(nHypotheses)
-          cat("Number of tree edges: ", "\n")
-          print(nEdges)
-          cat("Estimated tree FDR: ", "\n")
+          cat("Number of tree discoveries: ", "\n")
           FDR.control <- EstimatedHFDRControl(object)
+          FDR.control$n.tree.discoveries
+          cat("Estimated tree FDR: ", "\n")
           print(FDR.control$tree)
+          cat("Number of tip discoveries: ", "\n")
+          print(FDR.control$n.tip.discoveries)
           cat("Estimated tips FDR: ", "\n")
           print(FDR.control$tip)
 
           cat("hFDR adjusted p-values:", "\n")
           n.to.print <- min(nrow(p.vals), 10)
-          print(object@p.vals[1:n.to.print, ])
+          print(p.vals[order(p.vals$adjp)[1:n.to.print], ])
           if(n.to.print < nrow(object@p.vals)) {
               cat('[only 10 most significant hypotheses shown]', '\n')
           }
