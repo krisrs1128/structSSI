@@ -1,12 +1,10 @@
-
-
-
 \name{hypothesesTree-class}
 \Rdversion{1.1}
 \docType{class}
 \alias{hypothesesTree-class}
 \alias{plot,hypothesesTree,ANY-method}
 \alias{show,hypothesesTree-method}
+\alias{summary,hypothesesTree-method}
 
 \title{Class \code{"hypothesesTree"}}
 
@@ -41,21 +39,22 @@ Class for performing hierarchical multiple testing corrections.
       Check that the hypotheses tree is correctly initialized. It
       ensures that the number of unadjusted p-values, hypotheses names, and
       nodes in the hypotheses tree all agree. It also checks that the
-      hypotheses tree is in fact a tree.
-  \item{plot}{\code{signature(x = "hypothesesTree", y = "ANY")}: ... }{
+      hypotheses tree is in fact a tree.}
+    \item{plot}{\code{signature(x = "hypothesesTree", y = "ANY")}: ... }{
     Plots the tree of hypotheses and their p-values either before or
-  after adjustment. If a particular node hypothesis was not tested, it
-  is colored grey. If it was tested and rejected, it is green; if it was
-  tested and not rejected, it is shaded blue. The deeper the shade, the
-  lower (more significant) the p-value was. }
-\item{show}{\code{signature(object = "hypothesesTree")}: ... }{
-  This prints the main information contained in the hypotheses tree (the
-  number of hypotheses, the hypotheses names, adjusted p-values,
-  rejected hypotheses, etc).
+    after adjustment. If a particular node hypothesis was not tested, it
+    is colored grey. If it was tested and rejected, it is green; if it was
+    tested and not rejected, it is shaded blue. The deeper the shade, the
+    lower (more significant) the p-value was.}
+  \item{show}{\code{signature(object = "hypothesesTree")}: ... }{
+    This prints the unadjusted and adjusted p-values of the hypotheses
+    tree associated with the HFDR procedure.}
+  \item{summary}{\code{signature(object = "hypothesesTree")}:
+    This prints the most significant adjusted p-values, along with
+    estimates of the FDR across the tree and at tips.}
 }
 }
-}
-}
+
 
 \author{
   Kris Sankaran
@@ -63,10 +62,10 @@ Class for performing hierarchical multiple testing corrections.
 
 \seealso{
   \code{\link{hFDR.adjust}}
+  \code{\link{EstimatedHFDRControl}}
 }
 
 \examples{
-
 library('igraph')
 library('ape')
 
