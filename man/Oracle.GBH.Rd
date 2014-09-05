@@ -54,6 +54,11 @@ Oracle.GBH(unadj.p, group.index, pi.groups, alpha = 0.05)
   Hu, J.X., Zhao, H., and Zhou, H.H. False discovery rate control with
   groups. Journal of the American Statistical Association, volume 104,
   number 491. Pages 1215-1227. 2010.
+
+    Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective
+  Inference for Grouped or Hierarchically Structured Data. Journal of
+  Statistical Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+
 }
 
 \author{

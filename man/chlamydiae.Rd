@@ -26,6 +26,12 @@ phyloseq-class experiment-level object.
 
   This can be viewed/downloaded at:
   \url{http://www.pnas.org/content/108/suppl.1/4516.short}
+
+  Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective
+  Inference for Grouped or Hierarchically Structured Data. Journal of
+  Statistical Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+
+
 }
 \examples{
 data(chlamydiae)

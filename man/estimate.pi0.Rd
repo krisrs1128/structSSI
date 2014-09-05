@@ -85,6 +85,10 @@ estimate.pi0(pvalues, method, alpha = 0.05, lambda = 0.5)
   discovery rate in multiple testing with independent statistics.''
   Journal of Educational and Behavioral Statistics, 25(1):60, 2000.
 
+  Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective
+  Inference for Grouped or Hierarchically Structured Data. Journal of
+  Statistical Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+ 
   Storey, J.D., Taylor, J.E., and Siegmund, D. Strong control,
   conservative point estimation, and simultaneous conservative
   consistency of false discovery rates: a unified approach. Journal of
