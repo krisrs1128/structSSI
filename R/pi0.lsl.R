@@ -29,10 +29,10 @@ pi0.lsl <- function(p.val){
             l_g.i.prev <- 10000   # We don't want to stop on the first iteration, so
                                         # we set the values used to estimate pi0 very high
         }
-        if(p.val[i] != 0){
+        if(p.val[i] < 1){
             l_g.i <- (n_g + 1 - i)/(1 - p.val[i])
         } else {
-            return(l_g.i.prev) # If you're dividng by zero, then you guarantee an increase
+            return(l_g.i.prev) # If you're dividing by zero, then you guarantee an increase
         }
         if(l_g.i > l_g.i.prev || i == length(p.val)){
             pi0 <- (floor(l_g.i) + 1)/n_g
