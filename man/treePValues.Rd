@@ -42,16 +42,7 @@ treePValues(tree, abundances, environments)
 }
 
 \examples{
-  library('igraph')
-
-# Example using phyloseq
-if(require('phyloseq')) {
-    data(chlamydiae)
-    abundances <- otu_table(chlamydiae)
-    environments <- sample_data(chlamydiae)$SampleType
-    ch.tree <- get.edgelist(as.igraph(phy_tree(chlamydiae)))
-    ch.pval <- treePValues(ch.tree, abundances, environments)
-}
+library('igraph')
 
 # Example with random data
 if(require('ape')) {
@@ -65,4 +56,15 @@ if(require('ape')) {
   groups <- factor(c("A", "A", "B", "B"))
   treePValues(rand.tree, X, groups)
 }
+
+# Example using phyloseq
+if(require('ape') & require('phyloseq')) {
+    data(chlamydiae)
+    abundances <- otu_table(chlamydiae)
+    environments <- sample_data(chlamydiae)$SampleType
+    ch.tree <- get.edgelist(as.igraph(phy_tree(chlamydiae)))
+    ch.pval <- treePValues(ch.tree, abundances, environments)
+}
+
+
 }
