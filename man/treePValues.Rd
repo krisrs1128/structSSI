@@ -54,7 +54,7 @@ if(require('phyloseq')) {
 }
 
 # Example with random data
-if(require('ape)) {
+if(require('ape')) {
   rand.tree <- as.igraph(rtree(50))
   V(rand.tree)$name <- paste("hyp", 1:50)
   rand.tree <- get.edgelist(rand.tree)
