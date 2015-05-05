@@ -17,8 +17,8 @@ phyloseq-class experiment-level object.
 
 \references{
   McMurdie P.J., Holmes S. (2013). phyloseq: A Bioconductor Package for
-  Handling and Analysis of High-Throughput Phylogenetic 
-  Sequence Data. PLoS ONE 8(4): e61217. \url{doi:10.1371/journal.pone.0061217}.
+  Handling and Analysis of High-Throughput Phylogenetic
+  Sequence Data. PLoS ONE 8(4): e61217. \url{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0061217}.
 
   Caporaso, J. G., et al. (2011). Global patterns of 16S rRNA
   diversity at a depth of millions of sequences per sample. PNAS,
