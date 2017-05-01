@@ -54,9 +54,8 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     # times alpha, where the constant is determined by the position of the p-value in
     # the ordered list.
 
-    sorting.weighted.p <- sort(p.weighted, index.return = TRUE)
-    p.weighted <- sorting.weighted.p$x
-    p.weighted.index <- sorting.weighted.p$ix
+    p.weighted.index <- order(p.weighted)
+    p.weighted <- sort(p.weighted, na.last = TRUE)
 
     if(pi0 < 1) {
         adjp.temp <- N * (1 - pi0) * p.weighted / 1 : N
@@ -65,13 +64,11 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     }
     
     adjp <- StepUp(adjp.temp)
-
     p.vals <- data.frame('unadjp' = unadj.p[p.weighted.index],
                          'adjp' = adjp,
                          'group' = group.index[p.weighted.index],
                          'adj.significance' = SignificanceStars(alpha, adjp))
     rownames(p.vals) <- names(unadj.p)[p.weighted.index]
-    GBH.result <- new('GBH', p.vals = p.vals,
-                      pi0 = pi.groups, adaptive = F, alpha = alpha)
-    return(GBH.result)
+
+    new('GBH', p.vals = p.vals, pi0 = pi.groups, adaptive = F, alpha = alpha)
 }
