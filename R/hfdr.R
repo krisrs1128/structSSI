@@ -46,7 +46,7 @@
 #' EstimatedHFDRControl(hyp.tree)
 EstimatedHFDRControl <- function(hyp.tree) {
   alpha <- hyp.tree@alpha
-  parent.ix <- rownames(hyp.tree@p.vals) %in% hyp.tree@tree[, 1]
+  parent.ix <- hyp.tree@p.vals$hypothesis %in% hyp.tree@tree[, 1]
   n.families.tested <- sum(hyp.tree@p.vals[parent.ix, 'adjp'] < alpha, na.rm = T)
   n.tree.discoveries <- sum(hyp.tree@p.vals[, 'adjp'] < alpha, na.rm = T)
   n.tip.discoveries <- sum(hyp.tree@p.vals[!parent.ix, 'adjp'] < alpha, na.rm = T)
@@ -151,15 +151,26 @@ hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
   root <- FindRoot(hyp.tree.unadjusted@tree)
   if(hyp.tree.unadjusted@p.vals[root, 'unadjp'] > alpha){
     warning("Root hypothesis p-value equal to ", hyp.tree.unadjusted@p.vals[root, 'unadjp'], ". Fail to reject any hypotheses, terminating procedure.")
-    hyp.tree.unadjusted@p.vals[, 'adj.significance'] <- '-'
+    hyp.tree.unadjusted@p.vals[root, 'adjp'] <- hyp.tree.unadjusted@p.vals[root, 'unadjp']
+    hyp.tree.unadjusted@p.vals <- format_pvals(hyp.tree.unadjusted@p.vals, alpha)
     return(hyp.tree.unadjusted)
   }
 
   # Perform correction, and format output
   hyp.tree <- hFDR.internal(hyp.tree.unadjusted)
   hyp.tree@p.vals[root, 'adjp'] <- hyp.tree@p.vals[root, 'unadjp']
-  hyp.tree@p.vals[, 'adj.significance'] <- SignificanceStars(alpha, hyp.tree@p.vals[, 'adjp'])
+  hyp.tree@p.vals <- format_pvals(hyp.tree@p.vals, alpha)
+
   hyp.tree
+}
+
+format_pvals <- function(p.vals, alpha) {
+  p.vals[, 'adj.significance'] <- SignificanceStars(alpha, p.vals[, 'adjp'])
+  p.vals[, 'hypothesis'] <- row.names(p.vals)
+
+  row.names(p.vals) <- NULL
+  col_order <- c("hypothesis", "unadjp", "adjp", "adj.significance")
+  p.vals[, col_order]
 }
 
 hFDR.internal <- function(hyp.tree) {
@@ -177,7 +188,7 @@ hFDR.internal <- function(hyp.tree) {
   children.p.vals$adjp <- adjust$adjp[order(adjust$index), 'BH']
   hyp.tree@p.vals[children, 'adjp'] <- children.p.vals$adjp
 
-  rejected <- rownames(children.p.vals)[which(children.p.vals$adjp < hyp.tree@alpha)]
+  rejected <- children.p.vals[which(children.p.vals$adjp < hyp.tree@alpha), "hypothesis"]
   for(child in rejected){
     subcomp <- subcomponent(tree, child, "out")
     if(length(subcomp) > 1){

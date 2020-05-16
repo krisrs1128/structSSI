@@ -56,14 +56,14 @@ Hu, J.X., Zhao, H., and Zhou, H.H. False discovery rate control with
 # multiple testing experiment. The first 500 hypotheses are null and the last
 # 1500 are true alternatives.
 unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
-names(unadjp) <- paste("Hyp: ", 1:2000)
+names(unadjp) <- paste("Hyp:", 1:2000)
 
 # Here there are two groups total we have randomly assigned hypotheses to
 # these two groups.
 group.index <- c(sample(1:2, 2000, replace = TRUE))
 
 # Perform the GBH adjustment.
-result <-  Adaptive.GBH(unadjp, group.index, method = "storey")
+result <- Adaptive.GBH(unadjp, group.index, method = "storey")
 
 # A summary of the GBH adjustment
 summary(result)

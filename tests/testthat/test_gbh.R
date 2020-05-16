@@ -30,6 +30,26 @@ test_that(
 )
 
 test_that(
+  "Adaptive GBH works without names", {
+    unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
+    groups <- c(sample(1:2, 2000, replace = TRUE))
+    result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
+    expect_s4_class(result, "GBH")
+    expect_is(result@p.vals[1, "hypothesis"], "character")
+    expect_equal(rownames(result@p.vals), as.character(seq_len(2000)))
+  }
+)
+
+test_that(
+  "Adaptive GBH works when groups are strings", {
+    unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
+    groups <- c(sample(LETTERS[1:2], 2000, replace = TRUE))
+    result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
+    expect_equal(unique(result@p.vals$group), LETTERS[1:2])
+  }
+)
+
+test_that(
   "Adaptive GBH returns", {
     unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
     names(unadjp) <- paste("Hyp:", 1:2000)

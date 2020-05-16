@@ -175,14 +175,14 @@ estimate.pi0 <- function(pvalues, method, alpha = 0.05, lambda = 0.5){
 #' # multiple testing experiment. The first 500 hypotheses are null and the last
 #' # 1500 are true alternatives.
 #' unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
-#' names(unadjp) <- paste("Hyp: ", 1:2000)
+#' names(unadjp) <- paste("Hyp:", 1:2000)
 #'
 #' # Here there are two groups total we have randomly assigned hypotheses to
 #' # these two groups.
 #' group.index <- c(sample(1:2, 2000, replace = TRUE))
 #'
 #' # Perform the GBH adjustment.
-#' result <-  Adaptive.GBH(unadjp, group.index, method = "storey")
+#' result <- Adaptive.GBH(unadjp, group.index, method = "storey")
 #'
 #' # A summary of the GBH adjustment
 #' summary(result)
@@ -273,8 +273,7 @@ Adaptive.GBH <- function(unadj.p, group.index, alpha = 0.05, method = 'lsl',
 #' groups.2 <- c(sample(1:2, 2000, replace = TRUE))
 #' pi.groups <- c("1" = NA, "2" = NA)
 #' for(i in 1:2){
-#'   pi.groups[i] <- estimate.pi0(unadjp.2[which(groups.2 == i)], method =
-#'                                                                  "storey")
+#'   pi.groups[i] <- estimate.pi0(unadjp.2[which(groups.2 == i)], method = "storey")
 #' }
 #'
 #' result <- Oracle.GBH(unadjp.2, groups.2, pi.groups, 0.05)
@@ -286,6 +285,9 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     }
     if (length(unadj.p) != length(group.index)) {
         stop('Length of p values vector does not match group indexing vector.')
+    }
+    if (is.null(names(unadj.p))) {
+      names(unadj.p) <- seq_along(unadj.p)
     }
 
     p.weighted <- unadj.p
@@ -316,12 +318,13 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
 
     adjp <- StepUp(adjp.temp)
     p.vals <- data.frame(
+      'hypothesis' = names(unadj.p)[p.weighted.index],
       'unadjp' = unadj.p[p.weighted.index],
       'adjp' = adjp,
       'group' = group.index[p.weighted.index],
-      'adj.significance' = SignificanceStars(alpha, adjp)
+      'adj.significance' = SignificanceStars(alpha, adjp),
+      row.names = NULL
     )
-    rownames(p.vals) <- names(unadj.p)[p.weighted.index]
     new('GBH', p.vals = p.vals, pi0 = pi.groups, adaptive = F, alpha = alpha)
 }
 
