@@ -36,7 +36,7 @@ pi0.lsl <- function(p.val){
     } else {
       # We don't want to stop on the first iteration, so we set the values used
       # to estimate pi0 very high
-      l_g.i.prev <- 10000
+      l_g.i.prev <- Inf
     }
     if(p.val[i] < 1){
       l_g.i <- (n_g + 1 - i)/(1 - p.val[i])
