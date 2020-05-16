@@ -21,7 +21,7 @@
 \S4method{plot}{GBH,ANY}(x, ..., title = "GBH Adjustment")
 }
 \arguments{
-\item{p.vals}{Object of class \code{"data.frame"}. Each row correpsonds to an
+\item{p.vals}{Object of class \code{'data.frame'}. Each row correpsonds to an
 individual hypothesis. The first column stores the p-values before GBH
 adjustment, while the second gives the GBH adjusted p-values. The
 hypotheses are sorted in order of significance according to these GBH
@@ -29,15 +29,15 @@ adjusted p-values. The \code{group} column gives the group membership of
 each hypothesis, and \code{adj.significnace} codes the significance of each
 hypothesis, according to the GBH adjusted p-values.}
 
-\item{pi0}{Object of class \code{"numeric"}. The proportion of null
+\item{pi0}{Object of class \code{'numeric'}. The proportion of null
 hypotheses within each group. This is either known a priori or estimated
 adaptively from the unadjusted p-values.}
 
-\item{adaptive}{Object of class \code{"logical"}. An indicator of whether the
+\item{adaptive}{Object of class \code{'logical'}. An indicator of whether the
 proportion \code{pi0} was estimated adaptively from the data or known a
 priori.}
 
-\item{alpha}{Object of class \code{"numeric"}. The level at which the FDR is
+\item{alpha}{Object of class \code{'numeric'}. The level at which the FDR is
 controlled, during the GBH procedure.}
 }
 \description{
@@ -67,20 +67,20 @@ coded according to pre and post GBH p-value adjustment.}
 # 1500 are true alternatives.
 
 unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
-names(unadjp) <- paste("Hyp: ", 1:2000)
+names(unadjp) <- paste('Hyp: ', 1:2000)
 
 # These are the unadjusted p-values corresponding to the outcome of some
 # multiple testing experiment. The first 500 hypotheses are null and the last
 # 1500 are true alternatives.
 unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
-names(unadjp) <- paste("Hyp: ", 1:2000)
+names(unadjp) <- paste('Hyp: ', 1:2000)
 
 # Here there are two groups total we have randomly assigned hypotheses to these
 # two groups.
 group.index <- c(sample(1:2, 2000, replace = TRUE))
 
 # Perform the GBH adjustment.
-result <-  Adaptive.GBH(unadjp, group.index, method = "storey")
+result <-  Adaptive.GBH(unadjp, group.index, method = 'storey')
 
 # A summary of the GBH adjustment
 summary(result)
