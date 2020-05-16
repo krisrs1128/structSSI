@@ -1,16 +1,32 @@
-PlotHypTree <- function(hyp.tree, adjust = TRUE,
-                        return_script = FALSE, width = 900,
-                        height = 500, base_font_size = 12,
-                        output_file_name = paste('hyp_tree', gsub("[^\\d]+", "", Sys.time(), perl=TRUE), '.html')) {
-    if(adjust) {
-        tree.json <- HypTreeJSON(hyp.tree, type = 'adjusted')
-    } else {
-        tree.json <- HypTreeJSON(hyp.tree, type = 'unadjusted')
-                                 
-    }
+#' @importFrom jsonlite toJSON
+#' @import igraph
+HypTreeJSON <- function(hyp.tree, type = 'unadjusted') {
+  tree <- graph.edgelist(hyp.tree@tree)
+  V(tree)$names <- rownames(hyp.tree@p.vals)
+  if(type == 'adjusted') {
+    V(tree)$pval <- round(hyp.tree@p.vals[, 'adjp'], 5)
+  } else {
+    V(tree)$pval <- round(hyp.tree@p.vals[, 'unadjp'], 5)
+  }
+  toJSON(ListTreePval(tree))
+}
 
-    hyp.tree.script <- paste(
-'
+#' @export
+PlotHypTree <- function(hyp.tree, adjust = TRUE, return_script = FALSE,
+                        width = 900, height = 500, base_font_size = 12,
+                        output_file_name = NULL) {
+  if (is.null(output_file_name)) {
+    output_file_naem <- paste('hyp_tree', gsub("[^\\d]+", "", Sys.time(), perl=TRUE), '.html')
+  }
+
+  if(adjust) {
+    tree.json <- HypTreeJSON(hyp.tree, type = 'adjusted')
+  } else {
+    tree.json <- HypTreeJSON(hyp.tree, type = 'unadjusted')
+  }
+
+  hyp.tree.script <- paste(
+    '
 <style>
 
 .node circle {
@@ -107,13 +123,13 @@ function mouseout() {
 d3.select(self.frameElement).style("height", height + "px");
 </script>', sep = '')
 
-   if(return_script) {
-       return(hyp.tree.script)
-   } else {
-        html_path <- paste(tempdir(), output_file_name, sep = "/")
-        unlink(html_path)
-        cat(paste("<!DOCTYPE html>
+  if(return_script) {
+    return(hyp.tree.script)
+  } else {
+    html_path <- paste(tempdir(), output_file_name, sep = "/")
+    unlink(html_path)
+    cat(paste("<!DOCTYPE html>
 <meta charset=\"utf-8\">", hyp.tree.script, sep = ""), file = html_path)
-        browseURL(html_path)
-    }
+    browseURL(html_path)
+  }
 }
