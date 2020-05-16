@@ -16,9 +16,9 @@ hypotheses. The edges must be stored so that each edge is a row of a two
 column matrix, where the first column gives the parent and the second gives
 the child.}
 
-\item{The}{level of FDR control within families of the tree. Note that this
-is NOT necessarily the level of FDR control within the entire tree. Refer
-to the paper by Yekutieli and Benjamini for bounds on various FDR
+\item{alpha}{The level of FDR control within families of the tree. Note that
+this is NOT necessarily the level of FDR control within the entire tree.
+Refer to the paper by Yekutieli and Benjamini for bounds on various FDR
 criterion.}
 }
 \description{

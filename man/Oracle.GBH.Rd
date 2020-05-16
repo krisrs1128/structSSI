@@ -67,8 +67,7 @@ names(unadjp.2) <- paste("hyp", 1:2000)
 groups.2 <- c(sample(1:2, 2000, replace = TRUE))
 pi.groups <- c("1" = NA, "2" = NA)
 for(i in 1:2){
-  pi.groups[i] <- estimate.pi0(unadjp.2[which(groups.2 == i)], method =
-                                                                 "storey")
+  pi.groups[i] <- estimate.pi0(unadjp.2[which(groups.2 == i)], method = "storey")
 }
 
 result <- Oracle.GBH(unadjp.2, groups.2, pi.groups, 0.05)

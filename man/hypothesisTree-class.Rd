@@ -7,7 +7,7 @@
 \alias{show,hypothesesTree-method}
 \alias{summary,hypothesesTree-method}
 \alias{plot,hypothesesTree,ANY-method}
-\title{hypothesesTree class}
+\title{Manage Hierarchical Test Results}
 \usage{
 \S4method{initialize}{hypothesesTree}(.Object, ...)
 
@@ -27,6 +27,25 @@
     ".html", sep = "")
 )
 }
+\arguments{
+\item{.Object}{Dummy to initialize S4 class}
+
+\item{object}{A hypothesesTree object whose hypotheses we want to summarize.}
+
+\item{x}{A hypothesesTree object whose hypotheses we want to plot.}
+
+\item{adjust}{Show the adjusted p-values?}
+
+\item{return_script}{Return the d3 code used to generate the plot.}
+
+\item{width}{The width of the printed tree, in pixels.}
+
+\item{height}{The height of the printed tree, in pixels.}
+
+\item{base_font_size}{The size of the plot's labels.}
+
+\item{output_file_name}{The name of the file to which the script is saved.}
+}
 \description{
 This defines a class of hypothesis trees. It should allow us to manipulate
 the hypotheses, the results of tests associated with them, and their
@@ -34,19 +53,18 @@ hierarchical relation. We set a class to make this manpiulation easier and to
 prevent the bugs that arise from complexity. Note that the tree is defined by
 its adjacency matrix.
 
-Check that the hypotheses tree is correctly initialized. It
-  ensures that the number of unadjusted p-values, hypotheses names, and nodes
-  in the hypotheses tree all agree. It also checks that the hypotheses tree
-  is in fact a tree.
+Check that the hypotheses tree is correctly initialized. It ensures that the
+number of unadjusted p-values, hypotheses names, and nodes in the hypotheses
+tree all agree. It also checks that the hypotheses tree is in fact a tree.
 
-This prints the unadjusted and adjusted p-values of the
-  hypotheses tree associated with the HFDR procedure.
-
-This prints the most significant adjusted p-values, along with
-  estimates of the FDR across the tree and at tips.
+This prints the unadjusted and adjusted p-values of the hypotheses tree
+associated with the HFDR procedure.
 
 This prints the most significant adjusted p-values, along with
   estimates of the FDR across the tree and at tips.
+
+Creates an interactive plot to understand the tests along the tree that were
+rejected, with their adjusted and unadjusted p-values.
 }
 \section{Slots}{
 

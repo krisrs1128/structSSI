@@ -84,9 +84,9 @@ EstimatedHFDRControl <- function(hyp.tree) {
 #'   hypotheses. The edges must be stored so that each edge is a row of a two
 #'   column matrix, where the first column gives the parent and the second gives
 #'   the child.
-#' @param The level of FDR control within families of the tree. Note that this
-#'   is NOT necessarily the level of FDR control within the entire tree. Refer
-#'   to the paper by Yekutieli and Benjamini for bounds on various FDR
+#' @param alpha The level of FDR control within families of the tree. Note that
+#'   this is NOT necessarily the level of FDR control within the entire tree.
+#'   Refer to the paper by Yekutieli and Benjamini for bounds on various FDR
 #'   criterion.
 #' @details The FDR controlling procedure is described in more detail in the
 #'   paper by Yekutieli and Benjamini 2009. The idea is to control for multiple
@@ -220,6 +220,7 @@ hFDR.internal <- function(hyp.tree) {
 #'   environmental variables.
 #' @export
 #' @import igraph
+#' @importFrom stats lm pf
 #' @examples
 #' library('igraph')
 #'

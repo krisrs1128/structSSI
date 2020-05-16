@@ -1,26 +1,27 @@
-## This defines a class for the output of the GBH procedure.
-## The methods defined here should ease user interaction
-## with the output from this procedure.
-
-#' @title Class to facilitate performing the Group Benjamini-Hochberg procedure
-#'   and interpreting its output.
-#' @param p.vals Object of class \code{'data.frame'}. Each row correpsonds to an
+#' Manage Group Benjamini-Hochberg Outputs
+#'
+#' This defines a class GBH for managing outputs from the Group
+#' Benjamini-Hochberg procedure. This object makes it easy to print, summarize,
+#' and plot the results of the testing procedure.
+#'
+#' @slot p.vals Object of class \code{'data.frame'}. Each row correpsonds to an
 #'   individual hypothesis. The first column stores the p-values before GBH
 #'   adjustment, while the second gives the GBH adjusted p-values. The
 #'   hypotheses are sorted in order of significance according to these GBH
 #'   adjusted p-values. The \code{group} column gives the group membership of
 #'   each hypothesis, and \code{adj.significnace} codes the significance of each
 #'   hypothesis, according to the GBH adjusted p-values.
-#' @param pi0 Object of class \code{'numeric'}. The proportion of null
+#' @slot pi0 Object of class \code{'numeric'}. The proportion of null
 #'   hypotheses within each group. This is either known a priori or estimated
 #'   adaptively from the unadjusted p-values.
-#' @param adaptive Object of class \code{'logical'}. An indicator of whether the
+#' @slot adaptive Object of class \code{'logical'}. An indicator of whether the
 #'   proportion \code{pi0} was estimated adaptively from the data or known a
 #'   priori.
-#' @param alpha Object of class \code{'numeric'}. The level at which the FDR is
+#' @slot alpha Object of class \code{'numeric'}. The level at which the FDR is
 #'   controlled, during the GBH procedure.
 #' @export
-#' @rdname gbh-methods
+#' @import methods
+#' @rdname gbh-class
 #' @examples
 #' # These are the unadjusted p-values corresponding to the outcome of some
 #' # multiple testing experiment. The first 500 hypotheses are null and the last
@@ -54,16 +55,24 @@ setClass(
   )
 )
 
-#' @rdname gbh-methods
+#' Initialize a GBH object
+#'
+#' @rdname gbh-class
+#' @param .Object Dummy to initialize S4 class
+#' @param ... Any other arguments are accepted, but they will be ignored.
 setMethod('initialize', 'GBH', function(.Object, ...) {
   value <- callNextMethod()
   value
 })
 
-#' @slot show Prints the entire table of adjusted p-values and their associated
-#'   FDR adjusted significance levels, together with the estimated proportions
-#'   of null hypotheses, within each group.
-#' @rdname gbh-methods
+#' Print all adjusted hypotheses
+#'
+#' Prints the entire table of adjusted p-values and their associated FDR
+#' adjusted significance levels, together with the estimated proportions of null
+#' hypotheses, within each group.
+#'
+#' @param object A GBH object whose hypotheses we want to summarize.
+#' @rdname gbh-class
 #' @aliases GBH
 #' @export
 setMethod('show', 'GBH', function(object) {
@@ -78,12 +87,15 @@ setMethod('show', 'GBH', function(object) {
 
 })
 
-#' @slot summary Prints the most significant hypothesis, after adjusting for
-#'   multiple testing via GBH. Also supplies the estimated proportion of null
-#'   hypothesis within each group and a table of counts of adjusted significance
-#'   across groups.
+#' Print most significant hypothesis
+#'
+#' Shows results from multiple testing via GBH. Also supplies the estimated
+#' proportion of null hypothesis within each group and a table of counts of
+#' adjusted significance across groups.
+#'
+#' @param object A GBH object whose hypotheses we want to summarize.
 #' @aliases GBH
-#' @rdname gbh-methods
+#' @rdname gbh-class
 #' @export
 setMethod('summary', 'GBH', function(object) {
   p.vals <- object@p.vals
@@ -104,15 +116,23 @@ setMethod('summary', 'GBH', function(object) {
   print(table(p.vals[, c('group', 'adj.significance')]))
 })
 
-#' @slot plot Plots the p-values of the hypothesis, sorted according to GBH
-#'   adjusted significance, shape coded according to group membership, and color
-#'   coded according to pre and post GBH p-value adjustment.
+#' Plots the p-values from Adaptive GBH
+#'
+#' Show results of testing hypothesis, sorted according to GBH adjusted
+#' significance, shape coded according to group membership, and color coded
+#' according to pre and post GBH p-value adjustment.
+#'
+#' @param x A GBH object whose p-values to plot.
+#' @param title The name added to the top of the plot. Defaults to 'GBH
+#'   Adjustment'.
+#' @param ... Any other arguments are accepted, but they will be ignored.
+#'
 #' @importFrom reshape2 melt
 #' @import ggplot2
 #' @export
 #' @aliases GBH,ANY
-#' @rdname gbh-methods
-setMethod('plot', 'GBH', function(x,..., title = 'GBH Adjustment') {
+#' @rdname gbh-class
+setMethod('plot', 'GBH', function(x, title = 'GBH Adjustment', ...) {
   alpha <- x@alpha
   GBH <- x@p.vals
   GBH[, 'group'] <- as.factor(GBH[, 'group'])
@@ -126,7 +146,7 @@ setMethod('plot', 'GBH', function(x,..., title = 'GBH Adjustment') {
   )
 
   ggplot(mGBH) +
-    geom_point(aes(x = index, y = pval, shape = group, col = type)) +
+    geom_point(aes_string(x = "index", y = "pval", shape = "group", col = "type")) +
     geom_hline(yintercept = alpha, linetype = 2) +
     scale_x_continuous('Hypotheses sorted by adjusted p-values') +
     scale_y_continuous('Adjusted p-values') +

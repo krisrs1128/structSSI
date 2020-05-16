@@ -2,13 +2,13 @@ test_that(
   "pi0 estimates balanced", {
     unadjp <- c(runif(100, 0, 1), runif(100, 0, 0.01))
     est <- estimate.pi0(unadjp, method = "tst")
-    expect_equal(est, 0.5, tolerance = 0.1)
+    expect_equal(est, 0.5, tolerance = 0.15)
 
     est <- estimate.pi0(unadjp, method = "lsl")
-    expect_equal(est, 0.5, tolerance = 0.1)
+    expect_equal(est, 0.5, tolerance = 0.15)
 
     est <- estimate.pi0(unadjp, method = "storey")
-    expect_equal(est, 0.5, tolerance = 0.1)
+    expect_equal(est, 0.5, tolerance = 0.15)
   }
 )
 
@@ -16,16 +16,16 @@ test_that(
   "pi0 estimates unbalanced", {
     unadjp <- c(runif(990, 0, 1), runif(10, 0, 0.01))
     est <- estimate.pi0(unadjp, method = "tst")
-    expect_gte(est, 0.95)
+    expect_gte(est, 0.9)
 
     est <- estimate.pi0(unadjp, method = "lsl")
-    expect_gte(est, 0.95)
+    expect_gte(est, 0.9)
 
     est <- estimate.pi0(unadjp, method = "storey")
-    expect_gte(est, 0.95)
+    expect_gte(est, 0.9)
 
     est <- estimate.pi0(unadjp, method = "storey", lambda = 0.7)
-    expect_gte(est, 0.95)
+    expect_gte(est, 0.9)
   }
 )
 
@@ -45,7 +45,7 @@ test_that(
     unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
     groups <- c(sample(LETTERS[1:2], 2000, replace = TRUE))
     result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
-    expect_equal(unique(result@p.vals$group), LETTERS[1:2])
+    expect_equal(sort(unique(result@p.vals$group)), LETTERS[1:2])
   }
 )
 

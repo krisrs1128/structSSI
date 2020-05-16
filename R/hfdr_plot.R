@@ -11,6 +11,7 @@ HypTreeJSON <- function(hyp.tree, type = 'unadjusted') {
   toJSON(ListTreePval(tree))
 }
 
+#' @importFrom utils browseURL
 #' @export
 PlotHypTree <- function(hyp.tree, adjust = TRUE, return_script = FALSE,
                         width = 900, height = 500, base_font_size = 12,
