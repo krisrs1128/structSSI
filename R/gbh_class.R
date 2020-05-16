@@ -23,7 +23,7 @@ setMethod("show", "GBH", function(object) {
 
 })
 
-setMethod("summary", "GBH", function(object) {   
+setMethod("summary", "GBH", function(object) {
     p.vals <- object@p.vals
     alpha <- object@alpha
     n.to.print <- min(nrow(p.vals), 10)
@@ -51,11 +51,11 @@ setMethod("plot", "GBH", function(x,..., title = 'GBH Adjustment') {
     mGBH <- melt(GBH[, -4], id.vars = c('sorted.hyp', 'group'))
     colnames(mGBH) <- c('sorted.hyp', 'group', 'type', 'pval')
     mGBH[, 'pval'] <- as.numeric(mGBH[, 'pval'])
-    p <- ggplot(mGBH) + 
+    p <- ggplot(mGBH) +
         geom_point(aes(x = sorted.hyp, y = pval, shape = group, col = type)) +
         geom_hline(yintercept = alpha, linetype = 2) +
         scale_x_discrete('Hypotheses sorted by adjusted p-values') +
-        scale_y_continuous('Adjusted p-values') + 
+        scale_y_continuous('Adjusted p-values') +
         ggtitle(title)
     return(p)
 })
