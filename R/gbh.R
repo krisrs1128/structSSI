@@ -210,6 +210,7 @@ Adaptive.GBH <- function(unadj.p, group.index, alpha = 0.05, method = 'lsl',
       pi.groups[i] <- pi0.lsl(unadj.p[which(group.index == groups[i])])
     } else if(method == 'tst'){
       pi.groups[i] <- pi0.tst(unadj.p[which(group.index == groups[i])], alpha)
+      unadj.p <- (1 + alpha) * unadj.p
     }
   }
 
