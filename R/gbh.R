@@ -36,7 +36,7 @@ pi0.lsl <- function(p.val){
     } else {
       # We don't want to stop on the first iteration, so we set the values used
       # to estimate pi0 very high
-      l_g.i.prev <- 10000
+      l_g.i.prev <- Inf
     }
     if(p.val[i] < 1){
       l_g.i <- (n_g + 1 - i)/(1 - p.val[i])
@@ -210,6 +210,7 @@ Adaptive.GBH <- function(unadj.p, group.index, alpha = 0.05, method = 'lsl',
       pi.groups[i] <- pi0.lsl(unadj.p[which(group.index == groups[i])])
     } else if(method == 'tst'){
       pi.groups[i] <- pi0.tst(unadj.p[which(group.index == groups[i])], alpha)
+      unadj.p <- (1 + alpha) * unadj.p
     }
   }
 
