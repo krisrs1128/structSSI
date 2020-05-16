@@ -1,16 +1,17 @@
 Package: structSSI
 Type: Package
 Title: Multiple Testing for Hypotheses with Hierarchical or Group Structure
-Version: 1.1.1
-Date: 2015-5-4
+Version: 1.2.0
+Date: 2020-5-16
 Author: Kris Sankaran
 Maintainer: Kris Sankaran <sankaran.kris@gmail.com>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
-Depends: methods
-Imports: multtest, igraph, jsonlite, ggplot2, reshape2
+Imports: methods, multtest, igraph, jsonlite, ggplot2, reshape2
 Suggests: 
     ape,
     phyloseq,
     testthat
 RoxygenNote: 7.1.0
+Depends: 
+    R (>= 2.10)
