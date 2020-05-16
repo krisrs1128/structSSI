@@ -15,13 +15,14 @@ pi0.tail.p <- function(lambda, p.values){
   min(num/denom, 1)
 }
 
+#' @importFrom multtest mt.rawp2adjp mt.reject
 pi0.tst <- function(p.val, alpha = 0.05){
   alpha.prime <- alpha/(1 + alpha)
   n_g <- length(p.val)
   adjustment <- mt.rawp2adjp(p.val, proc = "BH")
   rejected <- mt.reject(adjustment$adjp, alpha.prime)
   n.rejected <- rejected$r[,2]
-  (n_g - n.rejected)/n_g
+  (n_g - n.rejected) / n_g
 }
 
 pi0.lsl <- function(p.val){
@@ -127,6 +128,8 @@ estimate.pi0 <- function(pvalues, method, alpha = 0.05, lambda = 0.5){
     return(pi0.lsl(pvalues))
   } else if(matched.method == "storey"){
     return(pi0.tail.p(lambda, pvalues))
+  } else {
+    stop("Method must be one of {'tst', 'lsl', 'storey'}")
   }
 }
 

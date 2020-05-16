@@ -9,5 +9,8 @@ Description: Performs multiple testing corrections that take specific structure 
 License: GPL-2
 Depends: methods
 Imports: multtest, igraph, jsonlite, ggplot2, reshape2
-Suggests: ape, phyloseq
+Suggests: 
+    ape,
+    phyloseq,
+    testthat
 RoxygenNote: 7.1.0
