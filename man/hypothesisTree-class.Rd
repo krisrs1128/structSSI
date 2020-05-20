@@ -72,9 +72,17 @@ rejected, with their adjusted and unadjusted p-values.
 
 \describe{
 \item{\code{tree}}{Object of class \code{"matrix"}. The edgelist for the hypotheses
-tree.}
+tree.
+  * hypothesisIndex: The index of the current hypothesis in the
+     \code{unadjp} vector
+  * hypothesisName: The name of the current hypothesis, from the names of
+     the \code{unadjp} vector
+  * unadjp: The unadjusted p-values input from \code{unadjp}
+  * adjp: The adjusted p-values, after the GBH adjustment.
+  * group: The group to which the original hypothesis belonged
+  * significance: A code for the significance of each hypothesis}
 
-\item{\code{p.vals}}{Object of class \code{"data.frame"}. Each row correpsonds to an
+\item{\code{p.vals}}{Object of class \code{'data.frame'}. Each row corresponds to an
 individual hypothesis. The first column stores the p-values before GBH
 adjustment, while the second gives the hFDR adjusted p-values. The
 hypotheses are sorted in order of significance according to these GBH

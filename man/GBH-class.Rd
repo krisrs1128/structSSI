@@ -51,13 +51,16 @@ according to pre and post GBH p-value adjustment.
 \section{Slots}{
 
 \describe{
-\item{\code{p.vals}}{Object of class \code{'data.frame'}. Each row correpsonds to an
-individual hypothesis. The first column stores the p-values before GBH
-adjustment, while the second gives the GBH adjusted p-values. The
-hypotheses are sorted in order of significance according to these GBH
-adjusted p-values. The \code{group} column gives the group membership of
-each hypothesis, and \code{adj.significnace} codes the significance of each
-hypothesis, according to the GBH adjusted p-values.}
+\item{\code{p.vals}}{Object of class \code{'data.frame'}. Each row corresponds to an
+individual hypothesis. The different columns correspond to,
+  * hypothesisIndex: The index of the current hypothesis in the
+     \code{unadjp} vector
+  * hypothesisName: The name of the current hypothesis, from the names of
+     the \code{unadjp} vector
+  * unadjp: The unadjusted p-values input from \code{unadjp}
+  * adjp: The adjusted p-values, after the GBH adjustment.
+  * group: The group to which the original hypothesis belonged
+  * significance: A code for the significance of each hypothesis}
 
 \item{\code{pi0}}{Object of class \code{'numeric'}. The proportion of null
 hypotheses within each group. This is either known a priori or estimated
