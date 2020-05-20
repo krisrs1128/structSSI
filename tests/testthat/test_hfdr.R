@@ -63,6 +63,17 @@ test_that("throws error on mismatched names", {
   expect_error(hFDR.adjust(unadjp, tree.el))
 })
 
+test_that("Works when names are ints", {
+  tree <- as.igraph(rtree(10))
+  V(tree)$name <- seq_len(19)
+  tree.el <- get.edgelist(tree)
+  unadjp <- c(runif(5, 0, 0.01), runif(14, 0, 1))
+  names(unadjp) <- seq_len(19)
+
+  adjust <- hFDR.adjust(unadjp, tree.el)
+  expect_equal(as.numeric(adjust@p.vals$hypothesis), adjust@p.vals$original_index)
+})
+
 test_that("hfdr returns", {
   tree <- as.igraph(rtree(50))
 
