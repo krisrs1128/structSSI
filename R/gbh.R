@@ -320,10 +320,11 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     adjp <- StepUp(adjp.temp)
     p.vals <- data.frame(
       'hypothesis' = names(unadj.p)[p.weighted.index],
+      'original_index' = p.weighted.index,
       'unadjp' = unadj.p[p.weighted.index],
       'adjp' = adjp,
       'group' = group.index[p.weighted.index],
-      'adj.significance' = SignificanceStars(alpha, adjp),
+      'significance' = SignificanceStars(alpha, adjp),
       row.names = NULL
     )
     new('GBH', p.vals = p.vals, pi0 = pi.groups, adaptive = F, alpha = alpha)

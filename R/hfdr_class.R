@@ -15,7 +15,7 @@
 #'   adjusted p-values. The \code{group} column gives the group membership of
 #'   each hypothesis, and \code{adj.significnace} codes the significance of each
 #'   hypothesis, according to the GBH adjusted p-values.
-#' @slot alpha: Object of class \code{"numeric"}. The level at which the FDR is
+#' @slot alpha Object of class \code{"numeric"}. The level at which the FDR is
 #'   controlled among children of each parent node.
 #'
 #' @rdname hypothesisTree-class
@@ -52,6 +52,7 @@ setClass(
 #' number of unadjusted p-values, hypotheses names, and nodes in the hypotheses
 #' tree all agree. It also checks that the hypotheses tree is in fact a tree.
 #' @param .Object Dummy to initialize S4 class
+#' @param ... Any other arguments are accepted, but they will be ignored.
 #' @rdname hypothesisTree-class
 #' @export
 setMethod("initialize", "hypothesesTree", function(.Object, ...) {
@@ -121,6 +122,7 @@ setMethod("summary", "hypothesesTree", function(object) {
 #' @param height The height of the printed tree, in pixels.
 #' @param base_font_size The size of the plot's labels.
 #' @param output_file_name The name of the file to which the script is saved.
+#' @param ... Any other arguments are accepted, but they will be ignored.
 #' @rdname hypothesisTree-class
 #' @export
 setMethod("plot", "hypothesesTree",
@@ -128,8 +130,8 @@ setMethod("plot", "hypothesesTree",
                    return_script = FALSE, width = 900,
                    height = 500, base_font_size = 12,
                    output_file_name = paste('hyp_tree', gsub("[^\\d]+", "", Sys.time(), perl=TRUE), '.html', sep = "")) {
-            PlotHypTree(x, adjust, return_script, width,
-                        height, base_font_size, output_file_name)
+            PlotHypTree(x, adjust, return_script, width, height, base_font_size,
+                        output_file_name)
           })
 
 validHypothesesTree <- function(object){

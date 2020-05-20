@@ -113,7 +113,7 @@ setMethod('summary', 'GBH', function(object) {
   print(object@pi0)
 
   cat('\n', 'Significance across groups:', '\n')
-  print(table(p.vals[, c('group', 'adj.significance')]))
+  print(table(p.vals[, c('group', 'significance')]))
 })
 
 #' Plots the p-values from Adaptive GBH

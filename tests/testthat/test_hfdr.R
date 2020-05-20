@@ -13,8 +13,8 @@ test_that("hfdr returns", {
   # The hierarchical adjustment procedure applied to this class
   adjust <- hFDR.adjust(unadjp, tree.el)
   expect_s4_class(adjust, "hypothesesTree")
-  expect_lt(adjust@p.vals[1, 2], 1e-2)
-  expect_equal(adjust@p.vals[1, 3], adjust@p.vals[1, 2])
+  expect_lt(adjust@p.vals[1, 4], 1e-2)
+  expect_equal(adjust@p.vals[1, 4], adjust@p.vals[1, 3])
 })
 
 test_that("hfdr plots", {
@@ -38,7 +38,7 @@ test_that("returns with warning when nothing significant", {
   unadjp <- rep(1, 19)
   names(unadjp) <- paste("hyp", c(1:19))
   expect_warning(hFDR.adjust(unadjp, tree.el))
-  expect_equal(hFDR.adjust(unadjp, tree.el)@p.vals[1, "adj.significance"], "-")
+  expect_equal(hFDR.adjust(unadjp, tree.el)@p.vals[1, "significance"], "-")
 })
 
 test_that("hfdr has no rownames", {
@@ -75,6 +75,6 @@ test_that("hfdr returns", {
   # The hierarchical adjustment procedure applied to this class
   adjust <- hFDR.adjust(unadjp, tree.el)
   expect_s4_class(adjust, "hypothesesTree")
-  expect_lt(adjust@p.vals[1, 2], 1e-2)
-  expect_equal(adjust@p.vals[1, 3], adjust@p.vals[1, 2])
+  expect_lt(adjust@p.vals[1, 3], 1e-2)
+  expect_equal(adjust@p.vals[1, 4], adjust@p.vals[1, 3])
 })
