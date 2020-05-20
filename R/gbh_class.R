@@ -139,14 +139,14 @@ setMethod('plot', 'GBH', function(x, title = 'GBH Adjustment', ...) {
   GBH[, 'index'] <- seq_len(nrow(GBH))
 
   mGBH <- melt(
-    GBH[, c('hypothesis', 'index', 'unadjp', 'adjp', 'group')],
-    id.vars = c('hypothesis', 'index', 'group'),
+    GBH[, c('hypothesisName', 'hypothesisIndex', 'unadjp', 'adjp', 'group')],
+    id.vars = c('hypothesisName', 'hypothesisIndex', 'group'),
     variable.name = 'type',
     value.name = 'pval'
   )
 
   ggplot(mGBH) +
-    geom_point(aes_string(x = "index", y = "pval", shape = "group", col = "type")) +
+    geom_point(aes_string(x = "hypothesisIndex", y = "pval", shape = "group", col = "type")) +
     geom_hline(yintercept = alpha, linetype = 2) +
     scale_x_continuous('Hypotheses sorted by adjusted p-values') +
     scale_y_continuous('Adjusted p-values') +
