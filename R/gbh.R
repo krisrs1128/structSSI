@@ -287,9 +287,6 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
     if (length(unadj.p) != length(group.index)) {
         stop('Length of p values vector does not match group indexing vector.')
     }
-    if (is.null(names(unadj.p))) {
-      names(unadj.p) <- seq_along(unadj.p)
-    }
 
     p.weighted <- unadj.p
     N <- length(unadj.p)
@@ -319,8 +316,8 @@ Oracle.GBH <- function(unadj.p, group.index, pi.groups, alpha = 0.05){
 
     adjp <- StepUp(adjp.temp)
     p.vals <- data.frame(
-      'hypothesis' = names(unadj.p)[p.weighted.index],
-      'original_index' = p.weighted.index,
+      'hypothesisIndex' = p.weighted.index,
+      'hypothesisName' = ifelse(is.null(names(unadj.p)), NA, names(unadj.p)[p.weighted.index]),
       'unadjp' = unadj.p[p.weighted.index],
       'adjp' = adjp,
       'group' = group.index[p.weighted.index],

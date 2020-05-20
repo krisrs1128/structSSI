@@ -35,8 +35,17 @@ test_that(
     groups <- c(sample(1:2, 2000, replace = TRUE))
     result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
     expect_s4_class(result, "GBH")
-    expect_is(result@p.vals[1, "hypothesis"], "character")
+    expect_true(is.na(result@p.vals[1, "hypothesisName"]))
     expect_equal(rownames(result@p.vals), as.character(seq_len(2000)))
+  }
+)
+
+test_that(
+  "plotting doesn't fail", {
+    unadjp <- c(runif(500, 0, 0.01), runif(1500, 0, 1))
+    groups <- c(sample(1:2, 2000, replace = TRUE))
+    result <-  Adaptive.GBH(unadjp, groups, method = "storey", alpha = 0.05)
+    expect_silent(plot(result))
   }
 )
 

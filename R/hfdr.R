@@ -137,9 +137,6 @@ EstimatedHFDRControl <- function(hyp.tree) {
 hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
   # If user does not name unadjusted p-values or tree nodes, assume i^th element
   # of unadjp corresponds to the i^th row / column of tree.
-  if(is.null(names(unadjp))) {
-    names(unadjp) <- seq_along(unadjp)
-  }
   if(!all(names(unadjp) %in% unique(as.vector(tree.el)))) {
     stop("Names of elements in unadjp do not match names of tree nodes")
   }
@@ -153,25 +150,28 @@ hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
   if(hyp.tree.unadjusted@p.vals[root, "unadjp"] > alpha){
     warning("Root hypothesis p-value equal to ", hyp.tree.unadjusted@p.vals[root, "unadjp"], ". Fail to reject any hypotheses, terminating procedure.")
     hyp.tree.unadjusted@p.vals[root, "adjp"] <- hyp.tree.unadjusted@p.vals[root, "unadjp"]
-    hyp.tree.unadjusted@p.vals <- format_pvals(hyp.tree.unadjusted@p.vals, alpha)
+    hyp.tree.unadjusted@p.vals <- format_pvals(hyp.tree.unadjusted@p.vals, unadjp, alpha)
     return(hyp.tree.unadjusted)
   }
 
   # Perform correction, and format output
   hyp.tree <- hFDR.internal(hyp.tree.unadjusted)
   hyp.tree@p.vals[root, "adjp"] <- hyp.tree@p.vals[root, "unadjp"]
-  hyp.tree@p.vals <- format_pvals(hyp.tree@p.vals, alpha)
+  hyp.tree@p.vals <- format_pvals(hyp.tree@p.vals, unadjp, alpha)
 
   hyp.tree
 }
 
-format_pvals <- function(p.vals, alpha) {
+format_pvals <- function(p.vals, unadjp, alpha) {
   p.vals[, "significance"] <- SignificanceStars(alpha, p.vals[, "adjp"])
-  p.vals[, "hypothesis"] <- row.names(p.vals)
-  p.vals[, "original_index"] <- seq_len(nrow(p.vals))
+  p.vals[, "hypothesisName"] <- NA
+  if (!is.null(names(unadjp))) {
+    p.vals[, "hypothesisName"] <- names(unadjp)
+  }
+  p.vals[, "hypothesisIndex"] <- seq_len(nrow(p.vals))
 
   row.names(p.vals) <- NULL
-  col_order <- c("hypothesis", "original_index", "unadjp", "adjp", "significance")
+  col_order <- c("hypothesisName", "hypothesisIndex", "unadjp", "adjp", "significance")
   p.vals[, col_order]
 }
 
@@ -190,7 +190,7 @@ hFDR.internal <- function(hyp.tree) {
   children.p.vals$adjp <- adjust$adjp[order(adjust$index), "BH"]
   hyp.tree@p.vals[children, "adjp"] <- children.p.vals$adjp
 
-  rejected <- children.p.vals[which(children.p.vals$adjp < hyp.tree@alpha), "hypothesis"]
+  rejected <- children.p.vals[which(children.p.vals$adjp < hyp.tree@alpha), "original_name"]
   for(child in rejected){
     subcomp <- subcomponent(tree, child, "out")
     if(length(subcomp) > 1){
