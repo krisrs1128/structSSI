@@ -27,8 +27,8 @@
 #'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
 #' @export
 #' @examples
-#' library('igraph')
-#' library('ape')
+#' library("igraph")
+#' library("ape")
 #'
 #' alternative.indices <- sample(1:49, 30)
 #' unadj.p.values <- vector("numeric", length = 49)
@@ -47,9 +47,9 @@
 EstimatedHFDRControl <- function(hyp.tree) {
   alpha <- hyp.tree@alpha
   parent.ix <- hyp.tree@p.vals$hypothesis %in% hyp.tree@tree[, 1]
-  n.families.tested <- sum(hyp.tree@p.vals[parent.ix, 'adjp'] < alpha, na.rm = T)
-  n.tree.discoveries <- sum(hyp.tree@p.vals[, 'adjp'] < alpha, na.rm = T)
-  n.tip.discoveries <- sum(hyp.tree@p.vals[!parent.ix, 'adjp'] < alpha, na.rm = T)
+  n.families.tested <- sum(hyp.tree@p.vals[parent.ix, "adjp"] < alpha, na.rm = T)
+  n.tree.discoveries <- sum(hyp.tree@p.vals[, "adjp"] < alpha, na.rm = T)
+  n.tip.discoveries <- sum(hyp.tree@p.vals[!parent.ix, "adjp"] < alpha, na.rm = T)
 
   fdr.tree.est <- min(1, (n.tree.discoveries + n.families.tested) / (n.tree.discoveries + 1) * alpha)
   fdr.tip.est <-  min(1, (n.tip.discoveries + n.families.tested) / (n.tip.discoveries + 1) * alpha)
@@ -113,8 +113,9 @@ EstimatedHFDRControl <- function(hyp.tree) {
 #' @importFrom multtest mt.rawp2adjp
 #' @export
 #' @examples
-#' library('igraph')
-#' library('ape')
+#' library("igraph")
+#' library("ape")
+#' library("structSSI")
 #'
 #' alternative.indices <- sample(1:49, 30)
 #' unadj.p.values <- vector("numeric", length = 49)
@@ -149,51 +150,52 @@ hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
   # Check to see if possible to descend from the root node (if not significant
   # reject no hypotheses).
   root <- FindRoot(hyp.tree.unadjusted@tree)
-  if(hyp.tree.unadjusted@p.vals[root, 'unadjp'] > alpha){
-    warning("Root hypothesis p-value equal to ", hyp.tree.unadjusted@p.vals[root, 'unadjp'], ". Fail to reject any hypotheses, terminating procedure.")
-    hyp.tree.unadjusted@p.vals[root, 'adjp'] <- hyp.tree.unadjusted@p.vals[root, 'unadjp']
+  if(hyp.tree.unadjusted@p.vals[root, "unadjp"] > alpha){
+    warning("Root hypothesis p-value equal to ", hyp.tree.unadjusted@p.vals[root, "unadjp"], ". Fail to reject any hypotheses, terminating procedure.")
+    hyp.tree.unadjusted@p.vals[root, "adjp"] <- hyp.tree.unadjusted@p.vals[root, "unadjp"]
     hyp.tree.unadjusted@p.vals <- format_pvals(hyp.tree.unadjusted@p.vals, alpha)
     return(hyp.tree.unadjusted)
   }
 
   # Perform correction, and format output
   hyp.tree <- hFDR.internal(hyp.tree.unadjusted)
-  hyp.tree@p.vals[root, 'adjp'] <- hyp.tree@p.vals[root, 'unadjp']
+  hyp.tree@p.vals[root, "adjp"] <- hyp.tree@p.vals[root, "unadjp"]
   hyp.tree@p.vals <- format_pvals(hyp.tree@p.vals, alpha)
 
   hyp.tree
 }
 
 format_pvals <- function(p.vals, alpha) {
-  p.vals[, 'adj.significance'] <- SignificanceStars(alpha, p.vals[, 'adjp'])
-  p.vals[, 'hypothesis'] <- row.names(p.vals)
+  p.vals[, "significance"] <- SignificanceStars(alpha, p.vals[, "adjp"])
+  p.vals[, "hypothesis"] <- row.names(p.vals)
+  p.vals[, "original_index"] <- seq_len(nrow(p.vals))
 
   row.names(p.vals) <- NULL
-  col_order <- c("hypothesis", "unadjp", "adjp", "adj.significance")
+  col_order <- c("hypothesis", "original_index", "unadjp", "adjp", "significance")
   p.vals[, col_order]
 }
 
 hFDR.internal <- function(hyp.tree) {
   tree <- graph.edgelist(hyp.tree@tree)
   tree.el.tmp <- data.frame(
-    'parent' = hyp.tree@tree[, 1],
-    'child' = hyp.tree@tree[, 2],
+    "parent" = hyp.tree@tree[, 1],
+    "child" = hyp.tree@tree[, 2],
     stringsAsFactors = F
   )
 
   root <- FindRoot(tree.el.tmp)
-  children <- tree.el.tmp[which(tree.el.tmp$parent == root), 'child']
+  children <- tree.el.tmp[which(tree.el.tmp$parent == root), "child"]
   children.p.vals <- hyp.tree@p.vals[children, ]
-  adjust <- mt.rawp2adjp(children.p.vals$unadjp, 'BH')
-  children.p.vals$adjp <- adjust$adjp[order(adjust$index), 'BH']
-  hyp.tree@p.vals[children, 'adjp'] <- children.p.vals$adjp
+  adjust <- mt.rawp2adjp(children.p.vals$unadjp, "BH")
+  children.p.vals$adjp <- adjust$adjp[order(adjust$index), "BH"]
+  hyp.tree@p.vals[children, "adjp"] <- children.p.vals$adjp
 
   rejected <- children.p.vals[which(children.p.vals$adjp < hyp.tree@alpha), "hypothesis"]
   for(child in rejected){
     subcomp <- subcomponent(tree, child, "out")
     if(length(subcomp) > 1){
       subtree.igraph <- induced.subgraph(graph = tree, vids = subcomp)
-      subtree.names <- get.vertex.attribute(subtree.igraph, 'name')
+      subtree.names <- get.vertex.attribute(subtree.igraph, "name")
       subtree <- new("hypothesesTree", alpha = hyp.tree@alpha,
                      tree = get.edgelist(subtree.igraph))
       subtree@p.vals <- hyp.tree@p.vals[subtree.names, ]
@@ -218,14 +220,15 @@ hFDR.internal <- function(hyp.tree) {
 #' @return A vector containing the p-values of the linear model predicting the
 #'   abundances of microbes aggregated to different levels in the taxonomy from
 #'   environmental variables.
+#' @importFrom stats lm pf
 #' @export
 #' @import igraph
 #' @importFrom stats lm pf
 #' @examples
-#' library('igraph')
+#' library("igraph")
 #'
 #' # Example with random data
-#' if(require('ape')) {
+#' if(require("ape")) {
 #'   rand.tree <- as.igraph(rtree(50))
 #'   V(rand.tree)$name <- paste("hyp", 1:50)
 #'   rand.tree <- get.edgelist(rand.tree)
@@ -238,7 +241,7 @@ hFDR.internal <- function(hyp.tree) {
 #' }
 #'
 #' # Example using phyloseq
-#' if(require('ape') & require('phyloseq')) {
+#' if(require("ape") & require("phyloseq")) {
 #'   data(chlamydiae)
 #'   abundances <- otu_table(chlamydiae)
 #'   environments <- sample_data(chlamydiae)$SampleType
@@ -258,7 +261,7 @@ treePValues <- function(tree, abundances, environments){
     descendants <- neighborhood(igraphTree, nodes = curVertexName, mode = "out", order = graphDiameter)
     subtree <- induced.subgraph(igraphTree, vids = descendants[[1]])
 
-    # some nodes don't have descendants that are in the OTU table, so we can't
+    # some nodes don"t have descendants that are in the OTU table, so we can"t
     # consider them in the p-value calculations.
     allDescendantsNames <- V(subtree)$name
     namesInTipsIndex <- which(allDescendantsNames %in% rownames(abundances))
@@ -299,7 +302,7 @@ ListTreePval <- function(tree) {
     children.list <- list()
 
     for(i in seq_along(children)) {
-      subcomp.indices <- subcomponent(tree, children[i], 'out')
+      subcomp.indices <- subcomponent(tree, children[i], "out")
       subgraph <- induced.subgraph(graph = tree, vids = subcomp.indices)
       children.list[[i]] <- ListTreePval(
         induced.subgraph(graph = tree, vids = subcomp.indices)
@@ -312,7 +315,7 @@ ListTreePval <- function(tree) {
 
 FindRoot <- function(tree.el) {
   tree.el.tmp <- tree.el
-  colnames(tree.el.tmp) <- c('parent', 'child')
+  colnames(tree.el.tmp) <- c("parent", "child")
   root <- unique(tree.el.tmp[which(!(tree.el.tmp[, 1] %in% tree.el.tmp[, 2])), 1]) # no edge leads to root
   return(root = root)
 }

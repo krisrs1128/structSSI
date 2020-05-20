@@ -30,6 +30,8 @@
 \arguments{
 \item{.Object}{Dummy to initialize S4 class}
 
+\item{...}{Any other arguments are accepted, but they will be ignored.}
+
 \item{object}{A hypothesesTree object whose hypotheses we want to summarize.}
 
 \item{x}{A hypothesesTree object whose hypotheses we want to plot.}
@@ -80,7 +82,7 @@ adjusted p-values. The \code{group} column gives the group membership of
 each hypothesis, and \code{adj.significnace} codes the significance of each
 hypothesis, according to the GBH adjusted p-values.}
 
-\item{\code{alpha:}}{Object of class \code{"numeric"}. The level at which the FDR is
+\item{\code{alpha}}{Object of class \code{"numeric"}. The level at which the FDR is
 controlled among children of each parent node.}
 }}
 

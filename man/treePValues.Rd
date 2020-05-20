@@ -28,10 +28,10 @@ This helper function is used to aggregate abundances of
   using the data structures from the phyloseq package framework.
 }
 \examples{
-library('igraph')
+library("igraph")
 
 # Example with random data
-if(require('ape')) {
+if(require("ape")) {
   rand.tree <- as.igraph(rtree(50))
   V(rand.tree)$name <- paste("hyp", 1:50)
   rand.tree <- get.edgelist(rand.tree)
@@ -44,7 +44,7 @@ if(require('ape')) {
 }
 
 # Example using phyloseq
-if(require('ape') & require('phyloseq')) {
+if(require("ape") & require("phyloseq")) {
   data(chlamydiae)
   abundances <- otu_table(chlamydiae)
   environments <- sample_data(chlamydiae)$SampleType

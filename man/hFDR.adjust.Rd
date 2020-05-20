@@ -60,8 +60,9 @@ The FDR controlling procedure is described in more detail in the
   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
 }
 \examples{
-library('igraph')
-library('ape')
+library("igraph")
+library("ape")
+library("structSSI")
 
 alternative.indices <- sample(1:49, 30)
 unadj.p.values <- vector("numeric", length = 49)
