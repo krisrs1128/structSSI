@@ -4,7 +4,7 @@ Title: Multiple Testing for Hypotheses with Hierarchical or Group Structure
 Version: 1.2.0
 Date: 2020-5-16
 Author: Kris Sankaran
-Maintainer: Kris Sankaran <sankaran.kris@gmail.com>
+Maintainer: Kris Sankaran <ksankaran@wisc.edu>
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
 Imports: methods, multtest, igraph, jsonlite, ggplot2, reshape2
