@@ -33,7 +33,7 @@ library("igraph")
 # Example with random data
 if(require("ape")) {
   rand.tree <- as.igraph(rtree(50))
-  V(rand.tree)$name <- paste("hyp", 1:50)
+  V(rand.tree)$name <- paste("hyp", seq_along(V(rand.tree)))
   rand.tree <- get.edgelist(rand.tree)
   X <- matrix(rnorm(50 * 4), 50 , 4)
   rownames(X)  <- paste("hyp" , 1:50)
