@@ -6,7 +6,8 @@ Date: 2020-5-16
 Authors@R: person(given = "Kris",
                   family = "Sankaran",
                   role = c("aut", "cre"),
-                  email = "ksankaran@wisc.edu")
+                  email = "ksankaran@wisc.edu",
+                  comment = c(ORCID = "0000-0002-9415-1971"))
 Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
 License: GPL-2
 Imports: methods, multtest, igraph, jsonlite, ggplot2, reshape2
