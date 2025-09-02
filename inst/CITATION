@@ -1,20 +1,15 @@
 citHeader("To cite structSSI in publications use:")
 
-citEntry(entry = "Article",
+bibentry(
+  bibtype      = "Article",
   title        = "{structSSI}: Simultaneous and Selective Inference for Grouped or Hierarchically Structured Data",
-  author       = personList(as.person("Kris Sankaran"),
-                   as.person("Susan Holmes")),
+  author       = c(person("Kris", "Sankaran"),
+                   person("Susan", "Holmes")),
   journal      = "Journal of Statistical Software",
   year         = "2014",
   volume       = "59",
   number       = "13",
   pages        = "1--21",
-  url          = "http://www.jstatsoft.org/v59/i13/",
-
-  textVersion  =
-  paste("Kris Sankaran, Susan Holmes (2014).",
-        "structSSI: Simultaneous and Selective Inference for Grouped or Hierarchically Structured Data.",
-        "Journal of Statistical Software, 59(13), 1-21.",
-        "URL http://www.jstatsoft.org/v59/i13/.")
+  url          = "https://www.jstatsoft.org/v59/i13/",
+  doi          = "10.18637/jss.v059.i13"
 )
-
