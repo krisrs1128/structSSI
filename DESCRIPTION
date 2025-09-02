@@ -7,7 +7,9 @@ Authors@R: person(given = "Kris",
                   role = c("aut", "cre"),
                   email = "ksankaran@wisc.edu",
                   comment = c(ORCID = "0000-0002-9415-1971"))
-Description: Performs multiple testing corrections that take specific structure of hypotheses into account.
+Description: Performs multiple testing corrections that take specific structure
+    of hypotheses into account, as described in Sankaran & Holmes (2014)
+    <doi:10.18637/jss.v059.i13>.
 License: GPL-2
 Imports: methods, multtest, igraph, jsonlite, ggplot2, reshape2
 Suggests:
