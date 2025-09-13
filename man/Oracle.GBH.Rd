@@ -48,7 +48,7 @@ Hu, J.X., Zhao, H., and Zhou, H.H. False discovery rate control
 
   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
   for Grouped or Hierarchically Structured Data. Journal of Statistical
-  Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+  Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 }
 \examples{
 # A very simple example, with only 5 hypotheses.

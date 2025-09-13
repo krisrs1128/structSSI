@@ -65,7 +65,7 @@ The Least Slope method uses the insight that, if we plot the sorted
 
   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
   for Grouped or Hierarchically Structured Data. Journal of Statistical
-  Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+  Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 
   Storey, J.D., Taylor, J.E., and Siegmund, D. Strong control, conservative
   point estimation, and simultaneous conservative consistency of false
