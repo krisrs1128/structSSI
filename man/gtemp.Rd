@@ -32,7 +32,9 @@ used in teaching Shumway and Stoffer's Time Series Analysis textbook.
 }
 \examples{
 data(gtemp)
-plot(gtemp, type = 'l')
+if (interactive()) {
+  plot(gtemp, type = 'l')
+}
 }
 
 \keyword{datasets}

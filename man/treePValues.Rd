@@ -44,7 +44,7 @@ if(require("ape")) {
 }
 
 # Example using phyloseq
-if(require("ape") & require("phyloseq")) {
+if(require("phyloseq") & require("ape")) {
   data(chlamydiae)
   abundances <- otu_table(chlamydiae)
   environments <- sample_data(chlamydiae)$SampleType

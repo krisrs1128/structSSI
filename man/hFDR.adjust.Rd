@@ -79,6 +79,8 @@ hyp.tree <- hFDR.adjust(unadj.p.values, tree.el, 0.05)
 
 # We can visualize the difference between the unadjusted and the adjusted
 # trees.
-plot(hyp.tree, adjust = FALSE)
-plot(hyp.tree, adjust = TRUE)
+if (interactive()) {
+  plot(hyp.tree, adjust = FALSE)
+  plot(hyp.tree, adjust = TRUE)
+}
 }
