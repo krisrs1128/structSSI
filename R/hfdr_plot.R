@@ -44,7 +44,7 @@ PlotHypTree <- function(hyp.tree, adjust = TRUE, return_script = FALSE,
 </style>
 
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
 var width = ', width,',
@@ -131,6 +131,10 @@ d3.select(self.frameElement).style("height", height + "px");
     unlink(html_path)
     cat(paste("<!DOCTYPE html>
 <meta charset=\"utf-8\">", hyp.tree.script, sep = ""), file = html_path)
-    browseURL(html_path)
+    if (interactive()) {
+      browseURL(html_path)
+    } else {
+      message("Plot available at: ", html_path)
+    }
   }
 }

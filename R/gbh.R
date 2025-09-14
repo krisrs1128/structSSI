@@ -103,7 +103,7 @@ pi0.lsl <- function(p.val){
 #'
 #'   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
-#'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+#'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #'
 #'   Storey, J.D., Taylor, J.E., and Siegmund, D. Strong control, conservative
 #'   point estimation, and simultaneous conservative consistency of false
@@ -168,7 +168,7 @@ estimate.pi0 <- function(pvalues, method, alpha = 0.05, lambda = 0.5){
 #'
 #'   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
-#'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+#'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #' @export
 #' @examples
 #' # These are the unadjusted p-values corresponding to the outcome of some
@@ -254,7 +254,7 @@ Adaptive.GBH <- function(unadj.p, group.index, alpha = 0.05, method = 'lsl',
 #'
 #'   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
-#'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+#'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #'
 #' @export
 #' @examples

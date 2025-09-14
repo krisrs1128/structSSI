@@ -24,7 +24,7 @@
 #'   hypotheses. 2002.
 #' Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
-#'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+#'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #' @export
 #' @examples
 #' library("igraph")
@@ -108,7 +108,7 @@ EstimatedHFDRControl <- function(hyp.tree) {
 #'
 #'   Sankaran, K and Holmes, S. structSSI: Simultaneous and Selective Inference
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
-#'   Software, 59(13), 1-21. 2014. http://jstatsoft.org/v59/i13/
+#'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #'
 #' @importFrom multtest mt.rawp2adjp
 #' @export
@@ -132,8 +132,10 @@ EstimatedHFDRControl <- function(hyp.tree) {
 #'
 #' # We can visualize the difference between the unadjusted and the adjusted
 #' # trees.
-#' plot(hyp.tree, adjust = FALSE)
-#' plot(hyp.tree, adjust = TRUE)
+#' if (interactive()) {
+#'   plot(hyp.tree, adjust = FALSE)
+#'   plot(hyp.tree, adjust = TRUE)
+#' }
 hFDR.adjust <- function(unadjp, tree.el, alpha = 0.05) {
   # If user does not name unadjusted p-values or tree nodes, assume i^th element
   # of unadjp corresponds to the i^th row / column of tree.
@@ -241,7 +243,7 @@ hFDR.internal <- function(hyp.tree) {
 #' }
 #'
 #' # Example using phyloseq
-#' if(require("ape") & require("phyloseq")) {
+#' if(require("phyloseq") & require("ape")) {
 #'   data(chlamydiae)
 #'   abundances <- otu_table(chlamydiae)
 #'   environments <- sample_data(chlamydiae)$SampleType

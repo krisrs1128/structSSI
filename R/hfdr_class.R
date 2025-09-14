@@ -46,7 +46,9 @@
 #' tree.el <- get.edgelist(tree)
 #'
 #' hyp.tree <- hFDR.adjust(unadj.p.values, tree.el, 0.05)
-#' plot(hyp.tree)
+#' if (interactive()) {
+#'   plot(hyp.tree)
+#' }
 setClass(
   "hypothesesTree",
   representation = list(
