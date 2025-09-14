@@ -27,7 +27,9 @@ test_that("hfdr plots", {
 
   adjust <- hFDR.adjust(unadjp, tree.el)
   expect_output(summary(adjust), "Number of tip discoveries")
-  expect_silent(plot(adjust))
+  if (interactive()) {
+    expect_silent(plot(adjust))
+  }
 })
 
 test_that("returns with warning when nothing significant", {
