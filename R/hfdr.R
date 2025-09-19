@@ -1,11 +1,10 @@
-
 #' @title Estimate FDR control variations for HFDR procedure
 #'
 #' @description This function estimates two types of HFDR control appropriate
 #'   for trees of hypotheses. If the BH procedure is applied at level alpha
 #'   within each of the tree families, this is defined as
 #'
-#    \deqn{FDR.est := \alpha * [\#\textit{discoveries} + \#\textit{families tested}] / [\textit{\#discoveries} + 1]}
+#'    \deqn{FDR.est := \alpha * [\#\textit{discoveries} + \#\textit{families tested}] / [\textit{\#discoveries} + 1]}
 #' where a discovery is defined as an adjusted p value below alpha within the
 #' entire tree or at the tips for tree and tips FDR, respectively.
 #' @param hyp.tree An object of class \code{HypothesesTree}, such as the result
@@ -110,6 +109,9 @@ EstimatedHFDRControl <- function(hyp.tree) {
 #'   for Grouped or Hierarchically Structured Data. Journal of Statistical
 #'   Software, 59(13), 1-21. 2014. https://jstatsoft.org/v59/i13/
 #'
+#' @return An object of class \code{hypothesesTree} with the hypothesis tree
+#'    structure, unadjusted and adjusted p-values, significance annotations, and
+#'    the FDR control level used.
 #' @importFrom multtest mt.rawp2adjp
 #' @export
 #' @examples
