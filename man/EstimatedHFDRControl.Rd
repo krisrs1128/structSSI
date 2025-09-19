@@ -24,6 +24,7 @@ This function estimates two types of HFDR control appropriate
   for trees of hypotheses. If the BH procedure is applied at level alpha
   within each of the tree families, this is defined as
 
+   \deqn{FDR.est := \alpha * [\#\textit{discoveries} + \#\textit{families tested}] / [\textit{\#discoveries} + 1]}
 where a discovery is defined as an adjusted p value below alpha within the
 entire tree or at the tips for tree and tips FDR, respectively.
 }

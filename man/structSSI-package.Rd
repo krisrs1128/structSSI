@@ -55,7 +55,7 @@
 
   Kris Sankaran
 
-  Maintainer: kriss1@stanford.edu
+  Maintainer: ksankaran@wisc.edu
 
 }
 

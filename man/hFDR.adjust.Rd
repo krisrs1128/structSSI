@@ -21,6 +21,11 @@ this is NOT necessarily the level of FDR control within the entire tree.
 Refer to the paper by Yekutieli and Benjamini for bounds on various FDR
 criterion.}
 }
+\value{
+An object of class \code{hypothesesTree} with the hypothesis tree
+   structure, unadjusted and adjusted p-values, significance annotations, and
+   the FDR control level used.
+}
 \description{
 This function implements the Hierarchical FDR controlling
   procedure developed Benjamini and Yekutieli. The procedure incorporates
